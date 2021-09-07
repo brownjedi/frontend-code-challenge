@@ -14,9 +14,9 @@
   },
   "bin": "src/index.js",
   "dependencies": {
-    "apollo-server-express": "^2.3.1",
-    "express": "^4.16.4",
-    "graphql": "^14.1.1",
-    "lodash": "^4.17.11"
+    "apollo-server-express": "^3.3.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.3",
+    "lodash": "^4.17.21"
   }
 }

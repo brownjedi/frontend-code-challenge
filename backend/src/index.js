@@ -77,9 +77,15 @@ const resolvers = {
   }
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
-server.applyMiddleware({ app });
+async function startServer() {
+  const server = new ApolloServer({ typeDefs, resolvers });
+  await server.start();
+  server.applyMiddleware({ app });
+  
+  app.listen({ port: PORT }, () => {
+    console.log(`🚀  Pokemon GraphQL server running at ${BASE_URL}${server.graphqlPath}`);
+  });
+}
 
-app.listen({ port: PORT }, () => {
-  console.log(`🚀  Pokemon GraphQL server running at ${BASE_URL}${server.graphqlPath}`);
-});
+startServer()
+
