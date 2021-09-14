@@ -1,0 +1,10 @@
+query pokemons {
+  pokemons(query: {}) {
+    limit
+    offset
+    edges {
+      id
+      name
+    }
+  }
+}
