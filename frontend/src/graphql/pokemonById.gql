@@ -1,0 +1,45 @@
+query pokemon($id: ID!) {
+  pokemon: pokemonById(id: $id) {
+    id
+    name
+    number
+    classification
+    image
+    isFavorite
+    maxCP
+    maxHP
+    fleeRate
+    resistant
+    sound
+    types
+    weaknesses
+    attacks {
+      special {
+        name
+        type
+        damage
+      }
+      fast {
+        name
+        type
+        damage
+      }
+    }
+    evolutionRequirements {
+      name
+      amount
+    }
+    evolutions {
+      id
+      name
+    }
+    height {
+      minimum
+      maximum
+    }
+    weight {
+      minimum
+      maximum
+    }
+  }
+}

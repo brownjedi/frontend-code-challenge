@@ -11,7 +11,7 @@
 
         <!-- Result -->
         <div v-else-if="data" class="result apollo" v-for="pokemon in data.pokemons.edges" :key="pokemon.id">
-          {{ pokemon.name }}
+          <router-link :to="`/${pokemon.id}`">{{ pokemon.name }}</router-link>
         </div>
 
         <!-- No result -->
