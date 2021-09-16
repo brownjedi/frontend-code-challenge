@@ -3,6 +3,7 @@ const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
 const fs = require('fs');
 const _ = require('lodash');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const pokemonsData = require('./pokemons');
 
 const PORT = 4000;
@@ -13,6 +14,20 @@ let favorites = new Map();
 
 const app = express();
 app.get('/sounds/:id', (req, res) => res.sendFile(`${__dirname}/sounds/${req.params.id}.mp3`));
+app.use(
+  '/img',
+  createProxyMiddleware({
+    target: 'https://img.pokemondb.net',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/img': '/', // remove base path
+    },
+  })
+);
+
+const convertNametoFileName = (name) => {
+  return name.toLowerCase().replace(/[&\\/\\\\#,+()$~%.'":*?<>{}]/g, '').replace(' ', '-')
+}
 
 const resolvers = {
   Query: {
@@ -66,10 +81,14 @@ const resolvers = {
   },
   Pokemon: {
     number: pokemon => parseInt(pokemon.id, 10),
-    image: pokemon => `https://img.pokemondb.net/artwork/${pokemon.name.toLowerCase().replace(/[&\\/\\\\#,+()$~%.'":*?<>{}]/g, '').replace(' ', '-')}.jpg`,
+    image: pokemon => `${BASE_URL}/img/artwork/vector/large/${convertNametoFileName(pokemon.name)}.png`,
     sound: pokemon => `${BASE_URL}/sounds/${parseInt(pokemon.id, 10)}`,
     evolutions: pokemon => _.map(pokemon.evolutions || [], ev => ({...ev, id: _.padStart(ev.id, 3, '0')})),
-    isFavorite: pokemon => !!favorites.get(pokemon.id)
+    isFavorite: pokemon => !!favorites.get(pokemon.id),
+    sprites: pokemon => ({
+      normal: `${BASE_URL}/img/sprites/black-white/normal/${convertNametoFileName(pokemon.name)}.png`,
+      animated:  `${BASE_URL}/img/sprites/black-white/anim/normal/${convertNametoFileName(pokemon.name)}.gif`,
+    })
   },
   PokemonAttack: {
     fast: pokemonAttack => pokemonAttack.fast || [],
