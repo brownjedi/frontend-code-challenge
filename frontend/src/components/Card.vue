@@ -1,15 +1,135 @@
 <template>
-  <div>
-    <h1>Hello {{ msg }}!</h1>
+  <div class="container" @mouseenter="setAnimated(true)" @mouseleave="setAnimated(false)" @click="navigateToPokemon">
+    <div class="header">
+      <div class="img">
+        <img :src="currentSprite" :alt="name" />
+      </div>
+      <div class="id">#{{ id }}</div>
+    </div>
+    <div class="name">{{ name }}</div>
+    <div class="classification">{{ classification }}</div>
+    <div class="types">
+      <div class="type" v-for="type in types" :key="type" :style="{ color: `var(--${type.toLowerCase()}-text-color)` }">
+        {{ type }}
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   props: {
-    msg: String,
+    id: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    normalSprite: {
+      type: String,
+      required: true,
+    },
+    animatedSprite: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    classification: {
+      type: String,
+      required: true,
+    },
+    types: {
+      type: Array,
+      required: true,
+    },
   },
-}
+  methods: {
+    setAnimated(val: boolean) {
+      this.currentSprite = val ? this.$props.animatedSprite : this.$props.normalSprite
+    },
+    navigateToPokemon() {
+      this.$router.push(`/${this.$props.name}`)
+    },
+  },
+  data() {
+    return {
+      currentSprite: this.$props.normalSprite,
+    }
+  },
+})
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.container {
+  width: 18.75rem;
+  height: 16rem;
+  border-radius: 0.625rem;
+  box-shadow: 10px 10px 60px #e9e8e7;
+  transition: transform 0.5s ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: relative;
+}
+
+.id {
+  color: var(--number-title-color);
+  font-weight: 500;
+  font-size: 6.25rem;
+}
+
+.img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.classification {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  padding-top: 0.3rem;
+}
+
+.types {
+  position: relative;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.type {
+  text-transform: uppercase;
+}
+
+.types * + * {
+  margin-left: 1rem;
+}
+</style>

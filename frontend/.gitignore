@@ -6,6 +6,7 @@ node_modules
 /tests/e2e/screenshots/
 coverage/
 
+
 # local env files
 .env.local
 .env.*.local

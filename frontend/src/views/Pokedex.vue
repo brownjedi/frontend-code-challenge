@@ -1,18 +1,18 @@
 <template>
-  <div class="about">
-    <h1>Pokedex!</h1>
-    <Pokemons />
+  <div>
+    <CardList />
   </div>
 </template>
 
-<script>
-import Pokemons from '@/components/Pokemons.vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import CardList from '@/components/CardList.vue'
 
-export default {
+export default defineComponent({
   components: {
-    Pokemons,
+    CardList,
   },
-}
+})
 </script>
 
 <style lang="scss"></style>
