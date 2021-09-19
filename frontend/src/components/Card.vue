@@ -1,15 +1,25 @@
 <template>
-  <div class="container" @mouseenter="setAnimated(true)" @mouseleave="setAnimated(false)" @click="navigateToPokemon">
-    <div class="header">
-      <div class="img">
+  <div
+    :class="styles.container"
+    @mouseenter="setAnimated(true)"
+    @mouseleave="setAnimated(false)"
+    @click="navigateToPokemon"
+  >
+    <div :class="styles.header">
+      <div :class="styles.img">
         <img :src="currentSprite" :alt="name" />
       </div>
-      <div class="id">#{{ id }}</div>
+      <div :class="styles.id">#{{ id }}</div>
     </div>
-    <div class="name">{{ name }}</div>
-    <div class="classification">{{ classification }}</div>
-    <div class="types">
-      <div class="type" v-for="type in types" :key="type" :style="{ color: `var(--${type.toLowerCase()}-text-color)` }">
+    <div :class="styles.name">{{ name }}</div>
+    <div :class="styles.classification">{{ classification }}</div>
+    <div :class="styles.types">
+      <div
+        :class="styles.type"
+        v-for="type in types"
+        :key="type"
+        :style="{ color: `var(--${type.toLowerCase()}-text-color)` }"
+      >
         {{ type }}
       </div>
     </div>
@@ -17,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, useCssModule } from 'vue'
 
 export default defineComponent({
   props: {
@@ -50,6 +60,11 @@ export default defineComponent({
       required: true,
     },
   },
+  setup(props) {
+    const styles = useCssModule()
+    const currentSprite = ref(props.normalSprite)
+    return { styles, currentSprite }
+  },
   methods: {
     setAnimated(val: boolean) {
       this.currentSprite = val ? this.$props.animatedSprite : this.$props.normalSprite
@@ -58,15 +73,10 @@ export default defineComponent({
       this.$router.push(`/${this.$props.name}`)
     },
   },
-  data() {
-    return {
-      currentSprite: this.$props.normalSprite,
-    }
-  },
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 .container {
   width: 18.75rem;
   height: 16rem;

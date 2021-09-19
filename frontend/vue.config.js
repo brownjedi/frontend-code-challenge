@@ -4,4 +4,11 @@ module.exports = {
       lintGQL: true,
     },
   },
+  css: {
+    loaderOptions: {
+      css: {
+        localsConvention: 'camelCase',
+      },
+    },
+  },
 }

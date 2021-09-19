@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
+  <div :class="styles.container">
     <!-- Loading -->
-    <div v-if="loading" class="loading">Loading...</div>
+    <div v-if="loading" :class="styles.loading">Loading...</div>
 
     <!-- Error -->
-    <div v-else-if="error" class="error">An error occured</div>
+    <div v-else-if="error" :class="styles.error">An error occured</div>
 
     <!-- Result -->
-    <div v-else-if="pokemons" class="result">
+    <div v-else-if="pokemons" :class="styles.result">
       <Card
         v-for="pokemon in pokemons"
         :id="pokemon.id"
@@ -22,12 +22,12 @@
     </div>
 
     <!-- No result -->
-    <div v-else class="no-result apollo">No result :(</div>
+    <div v-else :class="styles.noResult">No result :(</div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, useCssModule } from 'vue'
 import Card from './Card.vue'
 import { PokedexActions } from '@/store/modules/pokedex/actions'
 import { useStore } from '@/store'
@@ -37,11 +37,13 @@ export default defineComponent({
     Card,
   },
   setup() {
+    const styles = useCssModule()
     const store = useStore()
 
     store.dispatch(PokedexActions.FETCH_POKEMONS)
 
     return {
+      styles,
       pokemons: computed(() => store.getters.getPokemons),
       loading: computed(() => store.state.pokedex.pokemons.status.loading),
       error: computed(() => store.state.pokedex.pokemons.status.error),
@@ -50,7 +52,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 .error {
   color: red;
 }

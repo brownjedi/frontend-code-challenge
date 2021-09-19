@@ -1,16 +1,17 @@
 <template>
-  <div class="details">
+  <div :class="styles.container">
     <Details :name="name" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, useCssModule, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Details from '@/components/Details.vue'
 
 export default defineComponent({
   setup() {
+    const styles = useCssModule()
     const router = useRouter()
     const route = useRoute()
     const name = ref(route.params.name as string)
@@ -26,6 +27,7 @@ export default defineComponent({
     return {
       name,
       router,
+      styles,
     }
   },
   components: {
@@ -34,12 +36,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.details {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
+<style lang="scss" module>
+.container {
 }
 </style>

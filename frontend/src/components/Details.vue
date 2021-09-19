@@ -1,20 +1,20 @@
 <template>
-  <div class="container">
+  <div :class="styles.container">
     <!-- Loading -->
-    <div v-if="loading" class="loading">Loading...</div>
+    <div v-if="loading" :class="styles.loading">Loading...</div>
 
     <!-- Error -->
-    <div v-else-if="error" class="error">An error occured</div>
+    <div v-else-if="error" :class="styles.error">An error occured</div>
 
     <!-- Result -->
-    <div v-else-if="pokemon" class="result" :key="pokemon.id">
-      <div class="left">
-        <div class="img inner-container">
+    <div v-else-if="pokemon" :class="styles.result" :key="pokemon.id">
+      <div :class="styles.left">
+        <div :class="[styles.img, styles.innerContainer]">
           <img :src="pokemon.image" :alt="pokemon.name" />
         </div>
       </div>
-      <div class="right">
-        <div class="info inner-container">
+      <div :class="styles.right">
+        <div :class="[styles.info, styles.innerContainer]">
           <p>{{ pokemon.id }}</p>
           <p>{{ pokemon.name }}</p>
           <p>{{ pokemon.number }}</p>
@@ -34,14 +34,13 @@
         </div>
       </div>
     </div>
-
     <!-- No result -->
-    <div v-else class="no-result apollo">No result :(</div>
+    <div v-else :class="styles.noResult">No result :(</div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, useCssModule } from 'vue'
 import { PokedexActions } from '@/store/modules/pokedex/actions'
 import { useStore } from '@/store'
 
@@ -53,6 +52,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const styles = useCssModule()
+    console.log(styles)
     const store = useStore()
     store.dispatch(PokedexActions.FETCH_POKEMON_BY_NAME, props.name)
 
@@ -62,17 +63,18 @@ export default defineComponent({
     const loading = computed(() => store.state.pokedex.pokemon.status.loading)
     const error = computed(() => store.state.pokedex.pokemon.status.error)
 
-    return { pokemon, loading, error, backgroundColor, textColor }
+    return { styles, pokemon, loading, error, backgroundColor, textColor }
   },
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" module>
 .container {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
 }
 
 .result {
