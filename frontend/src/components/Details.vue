@@ -35,8 +35,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, watch } from 'vue'
-import { useGetDominantColors } from '@/composables/dominantColors'
+import { computed, defineComponent } from 'vue'
 import { PokedexActions } from '@/store/modules/pokedex/actions'
 import { useStore } from '@/store'
 
@@ -48,16 +47,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // const { pokemon, loading, error, refetch } = usePokemonByNameQuery(props.name)
     const store = useStore()
     store.dispatch(PokedexActions.FETCH_POKEMON_BY_NAME, props.name)
-    const { analyze, backgroundColor, textColor } = useGetDominantColors('#f2f2f2')
 
-    const pokemon = computed(() => store.state.pokedex.pokemon.data)
+    const backgroundColor = computed(() => store.getters.getRGBasterInfo(props.name)?.backgroundColor || 'inherit')
+    const textColor = computed(() => store.getters.getRGBasterInfo(props.name)?.textColor || 'inherit')
+    const pokemon = computed(() => store.getters.getPokemon)
     const loading = computed(() => store.state.pokedex.pokemon.status.loading)
     const error = computed(() => store.state.pokedex.pokemon.status.error)
-
-    watch(pokemon, value => !!value && analyze(value.image))
 
     return { pokemon, loading, error, backgroundColor, textColor }
   },

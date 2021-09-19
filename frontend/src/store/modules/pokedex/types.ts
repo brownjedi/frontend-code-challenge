@@ -9,6 +9,14 @@ export interface State {
     data?: PokemonInfo
     status: Status
   }
+  rgbaster: {
+    [key: string]: RGBaster
+  }
+}
+
+export interface RGBaster {
+  backgroundColor: string
+  textColor: string
 }
 
 export interface Status {

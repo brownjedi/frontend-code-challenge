@@ -1,4 +1,6 @@
 import { ActionContext, ActionTree } from 'vuex'
+import Color from 'color'
+import rgbaster from 'rgbaster'
 import { RootState } from '@/store/types'
 import { apolloClient } from '@/apolloClient'
 import { State } from './types'
@@ -34,12 +36,21 @@ export const actions: ActionTree<State, RootState> & Actions = {
     }
   },
 
-  async [PokedexActions.FETCH_POKEMON_BY_NAME]({ commit }, name) {
+  async [PokedexActions.FETCH_POKEMON_BY_NAME]({ commit, state }, name) {
     commit(PokedexMutations.SET_POKEMON_LOADING, true)
     commit(PokedexMutations.SET_POKEMON_ERROR, undefined)
     try {
       const result = await apolloClient.query({ query: POKEMON_BY_NAME_QUERY, variables: { name } })
-      commit(PokedexMutations.SET_POKEMON, result.data.pokemon)
+      const { pokemon } = result.data
+      commit(PokedexMutations.SET_POKEMON, pokemon)
+
+      // save dominant background color in vuex if not already present
+      if (!state.rgbaster[pokemon.name]) {
+        const rgbasterResult = await rgbaster(pokemon.image)
+        const backgroundColor = rgbasterResult?.[0].color ?? '#FFFFFF'
+        const textColor = new Color(backgroundColor).isLight() ? '#000000' : '#FFFFFF'
+        commit(PokedexMutations.SET_RGBASTER, { pokemonName: pokemon.name, backgroundColor, textColor })
+      }
     } catch (err) {
       commit(PokedexMutations.SET_POKEMON_ERROR, err as Error)
     } finally {

@@ -42,7 +42,7 @@ export default defineComponent({
     store.dispatch(PokedexActions.FETCH_POKEMONS)
 
     return {
-      pokemons: computed(() => store.state.pokedex.pokemons.data),
+      pokemons: computed(() => store.getters.getPokemons),
       loading: computed(() => store.state.pokedex.pokemons.status.loading),
       error: computed(() => store.state.pokedex.pokemons.status.error),
     }

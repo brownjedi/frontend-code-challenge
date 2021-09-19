@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex'
-import { PokemonInfo, PokemonOverview, State } from './types'
+import { PokemonInfo, PokemonOverview, RGBaster, State } from './types'
 
 export enum PokedexMutations {
   SET_POKEMONS = 'POKEDEX/SET_POKEMONS',
@@ -9,6 +9,8 @@ export enum PokedexMutations {
   SET_POKEMON = 'POKEDEX/SET_POKEMON',
   SET_POKEMON_LOADING = 'POKEDEX/SET_POKEMON_LOADING',
   SET_POKEMON_ERROR = 'POKEDEX/SET_POKEMON_ERROR',
+
+  SET_RGBASTER = 'POKEDEX/SET_RGBASTER',
 }
 
 export type Mutations<S = State> = {
@@ -19,6 +21,8 @@ export type Mutations<S = State> = {
   [PokedexMutations.SET_POKEMON](state: S, payload: PokemonInfo): void
   [PokedexMutations.SET_POKEMON_LOADING](state: S, status: boolean): void
   [PokedexMutations.SET_POKEMON_ERROR](state: S, error?: Error | boolean): void
+
+  [PokedexMutations.SET_RGBASTER](state: S, payload: { pokemonName: string } & RGBaster): void
 }
 
 export const mutations: MutationTree<State> & Mutations = {
@@ -42,5 +46,9 @@ export const mutations: MutationTree<State> & Mutations = {
   },
   [PokedexMutations.SET_POKEMON_ERROR](state, error) {
     state.pokemon.status.error = error
+  },
+
+  [PokedexMutations.SET_RGBASTER](state, { pokemonName, backgroundColor, textColor }) {
+    state.rgbaster[pokemonName] = { backgroundColor, textColor }
   },
 }

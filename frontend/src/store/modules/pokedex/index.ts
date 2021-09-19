@@ -16,6 +16,7 @@ const state: State = {
     data: undefined,
     status: { loading: false, error: undefined },
   },
+  rgbaster: {},
 }
 
 export { State }
