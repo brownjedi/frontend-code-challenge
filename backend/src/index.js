@@ -19,6 +19,9 @@ app.use(
   createProxyMiddleware({
     target: 'https://img.pokemondb.net',
     changeOrigin: true,
+    onProxyRes: function (proxyRes, req, res) {
+      proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    },
     pathRewrite: {
       '^/img': '/', // remove base path
     },
