@@ -1,31 +1,37 @@
 <template>
   <div class="container">
     <!-- Loading -->
-    <div v-if="loading" class="loading apollo">Loading...</div>
+    <div v-if="loading" class="loading">Loading...</div>
 
     <!-- Error -->
-    <div v-else-if="error" class="error apollo">An error occured</div>
+    <div v-else-if="error" class="error">An error occured</div>
 
     <!-- Result -->
-    <div v-else-if="pokemon" class="result apollo" :key="pokemon.id">
-      <img :src="pokemon.image" :alt="pokemon.name" />
-      <div>
-        <p>{{ pokemon.id }}</p>
-        <p>{{ pokemon.name }}</p>
-        <p>{{ pokemon.number }}</p>
-        <p>{{ pokemon.classification }}</p>
-        <p>{{ pokemon.isFavorite }}</p>
-        <p>{{ pokemon.maxCP }}</p>
-        <p>{{ pokemon.maxHP }}</p>
-        <p>{{ pokemon.fleeRate }}</p>
-        <p>{{ pokemon.resistant }}</p>
-        <audio controls>
-          <source :src="pokemon.sound" type="audio/mp3" />
-          Your browser does not support the audio element.
-        </audio>
-        <p>{{ pokemon.sound }}</p>
-        <p>{{ pokemon.types }}</p>
-        <p>{{ pokemon.weakness }}</p>
+    <div v-else-if="pokemon" class="result" :key="pokemon.id">
+      <div class="left">
+        <div class="img inner-container">
+          <img :src="pokemon.image" :alt="pokemon.name" />
+        </div>
+      </div>
+      <div class="right">
+        <div class="info inner-container">
+          <p>{{ pokemon.id }}</p>
+          <p>{{ pokemon.name }}</p>
+          <p>{{ pokemon.number }}</p>
+          <p>{{ pokemon.classification }}</p>
+          <p>{{ pokemon.isFavorite }}</p>
+          <p>{{ pokemon.maxCP }}</p>
+          <p>{{ pokemon.maxHP }}</p>
+          <p>{{ pokemon.fleeRate }}</p>
+          <p>{{ pokemon.resistant }}</p>
+          <audio controls>
+            <source :src="pokemon.sound" type="audio/mp3" />
+            Your browser does not support the audio element.
+          </audio>
+          <p>{{ pokemon.sound }}</p>
+          <p>{{ pokemon.types }}</p>
+          <p>{{ pokemon.weakness }}</p>
+        </div>
       </div>
     </div>
 
@@ -62,31 +68,53 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.apollo {
-  padding: 12px;
-}
-
 .container {
-  transition: background-color 0.5s ease-in-out;
-  background-color: v-bind(backgroundColor);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  flex: 1;
 }
 
 .result {
-  color: v-bind(textColor);
-  transition: color 0.5s ease-in-out;
+  flex: 1;
   display: flex;
+  align-self: stretch;
+
+  .inner-container {
+    max-width: 80rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem;
+  }
 }
 
-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: 25rem;
+.left {
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  color: v-bind(textColor);
+  background-color: v-bind(backgroundColor);
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: flex-end;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 40rem;
+  }
+}
+
+.right {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: flex-start;
+
+  .info {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .error {

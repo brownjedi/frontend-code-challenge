@@ -1,13 +1,13 @@
 <template>
-  <div class="apollo-example">
+  <div class="container">
     <!-- Loading -->
-    <div v-if="loading" class="loading apollo">Loading...</div>
+    <div v-if="loading" class="loading">Loading...</div>
 
     <!-- Error -->
-    <div v-else-if="error" class="error apollo">An error occured</div>
+    <div v-else-if="error" class="error">An error occured</div>
 
     <!-- Result -->
-    <div v-else-if="pokemons" class="result apollo">
+    <div v-else-if="pokemons" class="result">
       <Card
         v-for="pokemon in pokemons"
         :id="pokemon.id"
@@ -50,11 +50,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-.apollo {
-  padding: 12px;
-}
-
+<style lang="scss" scoped>
 .error {
   color: red;
 }

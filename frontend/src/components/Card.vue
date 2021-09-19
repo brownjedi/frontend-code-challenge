@@ -109,12 +109,14 @@ export default defineComponent({
 .name {
   font-size: 1.25rem;
   font-weight: 400;
+  text-align: center;
 }
 
 .classification {
   font-size: 0.8125rem;
   font-weight: 300;
   padding-top: 0.3rem;
+  text-align: center;
 }
 
 .types {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <CardList />
   </div>
 </template>
@@ -15,4 +15,10 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.container {
+  max-width: 160rem;
+  padding: 2rem;
+  margin: 0 auto;
+}
+</style>
