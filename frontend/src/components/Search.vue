@@ -1,0 +1,80 @@
+<template>
+  <div :class="styles.container">
+    <img src="/img/search.svg" :class="styles.searchIcon" />
+    <input type="text" ref="search" v-model="text" :class="styles.search" placeholder="Search Pokémons" />
+    <img
+      src="/img/close.svg"
+      tabindex="0"
+      :class="styles.closeIcon"
+      @click="onClose"
+      @keyup.enter="onClose"
+      @keydown.space.prevent="onClose"
+    />
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref, useCssModule, watch } from 'vue'
+import { useDebounce } from '@vueuse/core'
+
+export default defineComponent({
+  props: {},
+  setup() {
+    const search = ref(null)
+    const text = ref('')
+    const debounced = useDebounce(text, 600)
+    const styles = useCssModule()
+
+    function onClose() {
+      text.value = ''
+      const el = search.value as unknown as HTMLInputElement
+      el.focus()
+    }
+
+    watch(debounced, value => console.log(value))
+
+    return { styles, search, text, onClose }
+  },
+})
+</script>
+
+<style lang="scss" module>
+.container {
+  position: relative;
+  display: flex;
+  min-width: 18rem;
+  height: 2rem;
+  align-items: center;
+}
+
+.search {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.25rem;
+  border: 2px solid var(--number-title-color);
+  padding-left: 2rem;
+  outline-color: var(--main-text-color);
+}
+
+.search-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+  position: absolute;
+  left: 10px;
+}
+
+.close-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.search:not(:placeholder-shown) + .close-icon {
+  visibility: visible;
+}
+</style>

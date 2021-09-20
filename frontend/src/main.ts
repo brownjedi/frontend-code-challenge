@@ -1,10 +1,12 @@
+import 'intersection-observer/intersection-observer'
+
 import { createApp, provide, h } from 'vue'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import { store } from './store'
-import { apolloClient } from './apolloClient'
+import { apolloClient } from './graphql/apolloClient'
 
 createApp({
   setup() {

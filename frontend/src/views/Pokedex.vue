@@ -1,17 +1,25 @@
 <template>
   <div :class="styles.container">
-    <h1>What Pokémon are you looking for?</h1>
-    <CardList />
+    <Filter />
+    <div :class="styles.main">
+      <h1 :class="styles.title">What Pokémon are you looking for?</h1>
+      <Controls />
+      <CardList :class="styles.list" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, useCssModule } from 'vue'
 import CardList from '@/components/CardList.vue'
+import Controls from '@/components/Controls.vue'
+import Filter from '@/components/Filter.vue'
 
 export default defineComponent({
   components: {
     CardList,
+    Controls,
+    Filter,
   },
   setup() {
     const styles = useCssModule()
@@ -22,12 +30,24 @@ export default defineComponent({
 
 <style lang="scss" module>
 .container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.main {
+  padding: 2rem;
+  overflow: auto;
   max-width: 160rem;
   margin: 0 auto;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+}
+
+.title {
+}
+
+.list {
 }
 </style>

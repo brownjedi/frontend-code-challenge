@@ -11,25 +11,26 @@
       </div>
       <div :class="styles.id">#{{ id }}</div>
     </div>
-    <div :class="styles.name">{{ name }}</div>
+    <div :class="[styles.name, styles.loading]">{{ name }}</div>
     <div :class="styles.classification">{{ classification }}</div>
-    <div :class="styles.types">
-      <div
-        :class="styles.type"
-        v-for="type in types"
-        :key="type"
-        :style="{ color: `var(--${type.toLowerCase()}-text-color)` }"
-      >
-        {{ type }}
-      </div>
+    <Tags :tags="types" :class="styles.tags" />
+    <div :class="styles.favoriteContainer">
+      <div :class="isFavorite ? styles.favorite : styles.notFavorite" @click.stop="toggleFavorite"></div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, useCssModule } from 'vue'
+import { useRouter } from 'vue-router'
+import Tags from './Tags.vue'
+import { useMutation } from '@vue/apollo-composable'
+import { FAVORITE_POKEMON_MUTATION, UNFAVORITE_POKEMON_MUTATION } from '@/graphql/graphql-queries'
 
 export default defineComponent({
+  components: {
+    Tags,
+  },
   props: {
     id: {
       type: String,
@@ -59,25 +60,37 @@ export default defineComponent({
       type: Array,
       required: true,
     },
+    isFavorite: {
+      type: Boolean,
+      required: true,
+    },
   },
   setup(props) {
     const styles = useCssModule()
+    const router = useRouter()
     const currentSprite = ref(props.normalSprite)
-    return { styles, currentSprite }
-  },
-  methods: {
-    setAnimated(val: boolean) {
-      this.currentSprite = val ? this.$props.animatedSprite : this.$props.normalSprite
-    },
-    navigateToPokemon() {
-      this.$router.push(`/${this.$props.name}`)
-    },
+    const { mutate: favoritePokemon } = useMutation(FAVORITE_POKEMON_MUTATION, { variables: { id: props.id } })
+    const { mutate: unFavoritePokemon } = useMutation(UNFAVORITE_POKEMON_MUTATION, { variables: { id: props.id } })
+
+    function setAnimated(val: boolean) {
+      currentSprite.value = val ? props.animatedSprite : props.normalSprite
+    }
+    function navigateToPokemon() {
+      router.push(`/${props.name.toLowerCase()}`)
+    }
+
+    function toggleFavorite() {
+      props.isFavorite ? unFavoritePokemon() : favoritePokemon()
+    }
+
+    return { styles, currentSprite, setAnimated, navigateToPokemon, toggleFavorite }
   },
 })
 </script>
 
 <style lang="scss" module>
 .container {
+  text-align: center;
   width: 18.75rem;
   height: 16rem;
   border-radius: 0.625rem;
@@ -119,29 +132,40 @@ export default defineComponent({
 .name {
   font-size: 1.25rem;
   font-weight: 400;
-  text-align: center;
 }
 
 .classification {
   font-size: 0.8125rem;
   font-weight: 300;
   padding-top: 0.3rem;
-  text-align: center;
 }
 
-.types {
+.tags {
   position: relative;
   padding-top: 1rem;
+  align-self: center;
+}
+
+.favorite-container {
+  flex: 1 1 auto;
+  align-self: flex-end;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  align-items: flex-end;
 
-.type {
-  text-transform: uppercase;
-}
+  & > * {
+    flex: 1;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
 
-.types * + * {
-  margin-left: 1rem;
+  .favorite {
+    background: url('/img/pokeball_color.svg') no-repeat;
+  }
+
+  .not-favorite {
+    background: url('/img/pokeball_bw.svg') no-repeat;
+  }
 }
 </style>

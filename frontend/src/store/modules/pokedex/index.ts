@@ -6,17 +6,7 @@ import { Getters, getters } from './getters'
 import { Actions, actions } from './actions'
 
 const state: State = {
-  pokemons: {
-    data: [],
-    limit: 30,
-    offset: 0,
-    status: { loading: false, error: undefined },
-  },
-  pokemon: {
-    data: undefined,
-    status: { loading: false, error: undefined },
-  },
-  rgbaster: {},
+  query: {},
 }
 
 export { State }

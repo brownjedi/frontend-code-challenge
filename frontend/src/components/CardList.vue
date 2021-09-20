@@ -1,52 +1,92 @@
 <template>
   <div :class="styles.container">
-    <!-- Loading -->
-    <div v-if="loading" :class="styles.loading">Loading...</div>
+    <transition name="fade">
+      <!-- Loading -->
+      <div v-if="loading" :class="styles.loading">
+        <CardSkeleton v-for="index in 12" :key="index" />
+      </div>
 
-    <!-- Error -->
-    <div v-else-if="error" :class="styles.error">An error occured</div>
+      <!-- Error -->
+      <div v-else-if="error" :class="styles.error">An error occured</div>
 
-    <!-- Result -->
-    <div v-else-if="pokemons" :class="styles.result">
-      <Card
-        v-for="pokemon in pokemons"
-        :id="pokemon.id"
-        :image="pokemon.image"
-        :normalSprite="pokemon.sprites.normal"
-        :animatedSprite="pokemon.sprites.animated"
-        :name="pokemon.name"
-        :classification="pokemon.classification"
-        :types="pokemon.types"
-        :key="pokemon.id"
-      />
-    </div>
+      <!-- Result -->
+      <div v-else-if="pokemons">
+        <div :class="styles.result">
+          <Card
+            v-for="pokemon in pokemons"
+            :id="pokemon.id"
+            :image="pokemon.image"
+            :normalSprite="pokemon.sprites.normal"
+            :animatedSprite="pokemon.sprites.animated"
+            :name="pokemon.name"
+            :classification="pokemon.classification"
+            :types="pokemon.types"
+            :isFavorite="pokemon.isFavorite"
+            :key="pokemon.id"
+          />
+        </div>
+        <div ref="infiniteLoading"></div>
+      </div>
 
-    <!-- No result -->
-    <div v-else :class="styles.noResult">No result :(</div>
+      <!-- No result -->
+      <div v-else :class="styles.noResult">No result :(</div>
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useCssModule } from 'vue'
+import { computed, defineComponent, ref, useCssModule } from 'vue'
 import Card from './Card.vue'
-import { PokedexActions } from '@/store/modules/pokedex/actions'
-import { useStore } from '@/store'
+import CardSkeleton from './CardSkeleton.vue'
+import { usePokemonsQuery } from '@/composables/pokemonsQuery'
+import { useIntersectionObserver } from '@vueuse/core'
 
 export default defineComponent({
   components: {
     Card,
+    CardSkeleton,
   },
   setup() {
     const styles = useCssModule()
-    const store = useStore()
+    const { pokemonList, loading, error, fetchMore } = usePokemonsQuery({ limit: 30 })
+    const infiniteLoading = ref(null)
 
-    store.dispatch(PokedexActions.FETCH_POKEMONS)
+    const { stop } = useIntersectionObserver(infiniteLoading, ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        loadMore()
+      }
+    })
+
+    function loadMore() {
+      fetchMore({
+        variables: {
+          query: {
+            offset: pokemonList.value?.edges.length,
+          },
+        },
+        updateQuery: (prevResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult || fetchMoreResult.pokemons.edges.length === 0) {
+            stop()
+            return prevResult
+          }
+
+          return {
+            pokemons: {
+              ...prevResult.pokemons,
+              edges: [...prevResult.pokemons.edges, ...fetchMoreResult.pokemons.edges],
+            },
+          }
+        },
+      })
+    }
 
     return {
       styles,
-      pokemons: computed(() => store.getters.getPokemons),
-      loading: computed(() => store.state.pokedex.pokemons.status.loading),
-      error: computed(() => store.state.pokedex.pokemons.status.error),
+      pokemons: computed(() => pokemonList.value?.edges),
+      loading,
+      error,
+      loadMore,
+      infiniteLoading,
     }
   },
 })
@@ -57,7 +97,8 @@ export default defineComponent({
   color: red;
 }
 
-.result {
+.result,
+.loading {
   display: flex;
   gap: 3rem;
   flex-wrap: wrap;

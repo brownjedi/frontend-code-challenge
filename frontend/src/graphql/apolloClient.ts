@@ -1,4 +1,7 @@
+/* eslint-disable graphql/template-strings */
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import { resolvers } from './resolvers'
+import { typeDefs } from './typeDefs'
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
@@ -13,4 +16,6 @@ const cache = new InMemoryCache()
 export const apolloClient = new ApolloClient({
   link: httpLink,
   cache,
+  typeDefs,
+  resolvers,
 })
