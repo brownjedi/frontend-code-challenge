@@ -14,9 +14,7 @@
     <div :class="[styles.name, styles.loading]">{{ name }}</div>
     <div :class="styles.classification">{{ classification }}</div>
     <Tags :tags="types" :class="styles.tags" />
-    <div :class="styles.favoriteContainer">
-      <div :class="isFavorite ? styles.favorite : styles.notFavorite" @click.stop="toggleFavorite"></div>
-    </div>
+    <Favorite :class="styles.favorite" :isFavorite="isFavorite" @click="toggleFavorite" />
   </div>
 </template>
 
@@ -24,12 +22,14 @@
 import { defineComponent, ref, useCssModule } from 'vue'
 import { useRouter } from 'vue-router'
 import Tags from './Tags.vue'
+import Favorite from './Favorite.vue'
 import { useMutation } from '@vue/apollo-composable'
 import { FAVORITE_POKEMON_MUTATION, UNFAVORITE_POKEMON_MUTATION } from '@/graphql/graphql-queries'
 
 export default defineComponent({
   components: {
     Tags,
+    Favorite,
   },
   props: {
     id: {
@@ -98,7 +98,7 @@ export default defineComponent({
   transition: transform 0.5s ease-in-out;
 
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.125);
     cursor: pointer;
   }
 
@@ -146,26 +146,7 @@ export default defineComponent({
   align-self: center;
 }
 
-.favorite-container {
+.favorite {
   flex: 1 1 auto;
-  align-self: flex-end;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: flex-end;
-
-  & > * {
-    flex: 1;
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-
-  .favorite {
-    background: url('/img/pokeball_color.svg') no-repeat;
-  }
-
-  .not-favorite {
-    background: url('/img/pokeball_bw.svg') no-repeat;
-  }
 }
 </style>

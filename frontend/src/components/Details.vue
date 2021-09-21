@@ -45,6 +45,7 @@
 
               <Tags :tags="pokemon.weaknesses" :class="styles.tags" />
             </div>
+            <Favorite :class="styles.favorite" :large="true" :isFavorite="pokemon.isFavorite" @click="toggleFavorite" />
             <audio ref="audioRef">
               <source :src="pokemon.sound" type="audio/mp3" />
               Your browser does not support the audio element.
@@ -61,11 +62,15 @@
 <script lang="ts">
 import { computed, defineComponent, ref, useCssModule } from 'vue'
 import Tags from './Tags.vue'
+import Favorite from './Favorite.vue'
 import { usePokemonByNameQuery } from '@/composables/pokemonByNameQuery'
+import { FAVORITE_POKEMON_MUTATION, UNFAVORITE_POKEMON_MUTATION } from '@/graphql/graphql-queries'
+import { useMutation } from '@vue/apollo-composable'
 
 export default defineComponent({
   components: {
     Tags,
+    Favorite,
   },
   props: {
     name: {
@@ -78,16 +83,26 @@ export default defineComponent({
     const audioRef = ref(null)
     const name = computed(() => props.name.toLowerCase())
     const { pokemon, loading, error } = usePokemonByNameQuery(name.value)
+    const { mutate: favoritePokemon } = useMutation(FAVORITE_POKEMON_MUTATION)
+    const { mutate: unFavoritePokemon } = useMutation(UNFAVORITE_POKEMON_MUTATION)
 
     function playAudio() {
       const el = audioRef.value as unknown as HTMLAudioElement
       el.play()
     }
 
+    function toggleFavorite() {
+      if (pokemon.value) {
+        pokemon.value.isFavorite
+          ? unFavoritePokemon({ id: pokemon.value.id })
+          : favoritePokemon({ id: pokemon.value.id })
+      }
+    }
+
     const backgroundColor = computed(() => pokemon.value?.rgbaster?.backgroundColor || 'inherit')
     const textColor = computed(() => pokemon.value?.rgbaster?.textColor || 'inherit')
 
-    return { styles, pokemon, loading, error, backgroundColor, textColor, audioRef, playAudio }
+    return { styles, pokemon, loading, error, backgroundColor, textColor, audioRef, playAudio, toggleFavorite }
   },
 })
 </script>
@@ -192,6 +207,11 @@ export default defineComponent({
     padding-top: 0.25rem;
     align-self: flex-start;
     font-weight: 300;
+  }
+
+  .favorite {
+    margin-top: 3rem;
+    align-self: center;
   }
 }
 
