@@ -18,10 +18,15 @@ import { defineComponent, ref, useCssModule, watch } from 'vue'
 import { useDebounce } from '@vueuse/core'
 
 export default defineComponent({
-  props: {},
-  setup() {
+  props: {
+    initialValue: {
+      type: String,
+    },
+  },
+  emits: ['onSearch'],
+  setup(props, { emit }) {
     const search = ref(null)
-    const text = ref('')
+    const text = ref(props.initialValue)
     const debounced = useDebounce(text, 600)
     const styles = useCssModule()
 
@@ -31,7 +36,7 @@ export default defineComponent({
       el.focus()
     }
 
-    watch(debounced, value => console.log(value))
+    watch(debounced, value => emit('onSearch', value))
 
     return { styles, search, text, onClose }
   },
@@ -45,6 +50,8 @@ export default defineComponent({
   min-width: 18rem;
   height: 2rem;
   align-items: center;
+  max-width: 60rem;
+  margin: 0 auto;
 }
 
 .search {

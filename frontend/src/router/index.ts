@@ -9,6 +9,12 @@ const routes: Array<RouteRecordRaw> = [
     component: Pokedex,
   },
   {
+    path: '/favorites',
+    name: 'Favorite Pokémon',
+    component: Pokedex,
+    props: { showOnlyFavorites: true },
+  },
+  {
     path: '/:name',
     name: 'Pokémon Details',
     component: Pokemon,

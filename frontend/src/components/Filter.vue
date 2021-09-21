@@ -11,8 +11,22 @@
 
       <!-- Result -->
       <div v-else-if="types" :class="styles.result">
-        <FilterButton type="button" :class="styles.button" text="All">All</FilterButton>
-        <FilterButton type="button" :class="styles.button" v-for="type in types" :key="type" :text="type" />
+        <FilterButton
+          type="button"
+          :class="styles.button"
+          @click="val => onClick('')"
+          :active="selectedType === ''"
+          text="All"
+        />
+        <FilterButton
+          type="button"
+          :class="styles.button"
+          @click="val => onClick(val)"
+          :active="selectedType === type"
+          v-for="type in types"
+          :key="type"
+          :text="type"
+        />
       </div>
 
       <!-- No result -->
@@ -22,18 +36,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useCssModule } from 'vue'
+import { computed, defineComponent, useCssModule } from 'vue'
 import { usePokemonTypesQuery } from '@/composables/pokemonsTypesQuery'
 import FilterButton from './FilterButton.vue'
 import FilterButtonSkeleton from './FilterButtonSkeleton.vue'
+import { useStore } from '@/store'
+import { PokedexMutations } from '@/store/modules/pokedex/mutations'
 
 export default defineComponent({
   components: { FilterButton, FilterButtonSkeleton },
   setup() {
     const styles = useCssModule()
+    const store = useStore()
+    const selectedType = computed(() => store.state.pokedex.query.filter.type)
     const { types, loading, error } = usePokemonTypesQuery()
 
-    return { styles, types, loading, error }
+    function onClick(type: string) {
+      store.commit(PokedexMutations.SET_TYPE, { type })
+    }
+
+    return { styles, types, loading, error, selectedType, onClick }
   },
 })
 </script>

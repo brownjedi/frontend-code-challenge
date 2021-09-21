@@ -22,6 +22,14 @@ export interface PokemonTypesQueryResponse {
   pokemonTypes: PokemonTypes
 }
 
+export interface FavoriteQueryResponse {
+  pokemon: Pick<PokemonOverview, 'id' | 'isFavorite'>
+}
+
+export interface UnFavoriteQueryResponse {
+  pokemon: Pick<PokemonOverview, 'id' | 'isFavorite'>
+}
+
 export interface PokemonList {
   count: number
   edges: PokemonOverview[]

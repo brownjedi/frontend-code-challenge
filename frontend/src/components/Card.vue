@@ -23,8 +23,8 @@ import { defineComponent, ref, useCssModule } from 'vue'
 import { useRouter } from 'vue-router'
 import Tags from './Tags.vue'
 import Favorite from './Favorite.vue'
-import { useMutation } from '@vue/apollo-composable'
-import { FAVORITE_POKEMON_MUTATION, UNFAVORITE_POKEMON_MUTATION } from '@/graphql/graphql-queries'
+import { useFavoritePokemonMutation } from '@/composables/favoritePokemonMutation'
+import { useUnFavoritePokemonMutation } from '@/composables/unFavoritePokemonMutation'
 
 export default defineComponent({
   components: {
@@ -69,8 +69,8 @@ export default defineComponent({
     const styles = useCssModule()
     const router = useRouter()
     const currentSprite = ref(props.normalSprite)
-    const { mutate: favoritePokemon } = useMutation(FAVORITE_POKEMON_MUTATION, { variables: { id: props.id } })
-    const { mutate: unFavoritePokemon } = useMutation(UNFAVORITE_POKEMON_MUTATION, { variables: { id: props.id } })
+    const { mutate: favoritePokemon } = useFavoritePokemonMutation()
+    const { mutate: unFavoritePokemon } = useUnFavoritePokemonMutation()
 
     function setAnimated(val: boolean) {
       currentSprite.value = val ? props.animatedSprite : props.normalSprite
@@ -80,7 +80,7 @@ export default defineComponent({
     }
 
     function toggleFavorite() {
-      props.isFavorite ? unFavoritePokemon() : favoritePokemon()
+      props.isFavorite ? unFavoritePokemon({ id: props.id }) : favoritePokemon({ id: props.id })
     }
 
     return { styles, currentSprite, setAnimated, navigateToPokemon, toggleFavorite }

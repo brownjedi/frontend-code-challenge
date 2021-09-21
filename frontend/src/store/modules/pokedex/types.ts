@@ -1,9 +1,8 @@
 export interface State {
   query: {
     search?: string
-    filter?: {
+    filter: {
       type?: string
-      isFavorite?: boolean
     }
   }
 }

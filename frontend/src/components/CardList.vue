@@ -3,7 +3,7 @@
     <transition name="fade">
       <!-- Loading -->
       <div v-if="loading" :class="styles.loading">
-        <CardSkeleton v-for="index in 12" :key="index" />
+        <CardSkeleton v-for="index in 3" :key="index" />
       </div>
 
       <!-- Error -->
@@ -35,57 +35,53 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useCssModule } from 'vue'
+import { computed, defineComponent, onUnmounted, reactive, ref, useCssModule } from 'vue'
 import Card from './Card.vue'
 import CardSkeleton from './CardSkeleton.vue'
 import { usePokemonsQuery } from '@/composables/pokemonsQuery'
 import { useIntersectionObserver } from '@vueuse/core'
+import { useStore } from '@/store'
 
 export default defineComponent({
+  props: {
+    showOnlyFavorites: {
+      type: Boolean,
+      default: undefined,
+    },
+  },
   components: {
     Card,
     CardSkeleton,
   },
-  setup() {
+  setup(props) {
     const styles = useCssModule()
-    const { pokemonList, loading, error, fetchMore } = usePokemonsQuery({ limit: 30 })
+    const store = useStore()
+    const search = computed(() => store.state.pokedex.query.search)
+    const type = computed(() => store.state.pokedex.query.filter.type)
+    const query = reactive({ limit: 30, search, filter: { type, isFavorite: props.showOnlyFavorites } })
+    const { pokemonList, loading, error, fetchMore } = usePokemonsQuery(query)
     const infiniteLoading = ref(null)
 
     const { stop } = useIntersectionObserver(infiniteLoading, ([{ isIntersecting }]) => {
       if (isIntersecting) {
-        loadMore()
+        fetchMore({
+          variables: {
+            query: {
+              ...query,
+              offset: pokemonList.value?.edges.length,
+            },
+          },
+        })
       }
     })
 
-    function loadMore() {
-      fetchMore({
-        variables: {
-          query: {
-            offset: pokemonList.value?.edges.length,
-          },
-        },
-        updateQuery: (prevResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult || fetchMoreResult.pokemons.edges.length === 0) {
-            stop()
-            return prevResult
-          }
-
-          return {
-            pokemons: {
-              ...prevResult.pokemons,
-              edges: [...prevResult.pokemons.edges, ...fetchMoreResult.pokemons.edges],
-            },
-          }
-        },
-      })
-    }
+    onUnmounted(() => stop())
 
     return {
       styles,
       pokemons: computed(() => pokemonList.value?.edges),
       loading,
       error,
-      loadMore,
       infiniteLoading,
     }
   },
@@ -99,10 +95,9 @@ export default defineComponent({
 
 .result,
 .loading {
-  display: flex;
-  gap: 3rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-gap: 3rem;
+  grid-template-columns: repeat(auto-fill, 18.75rem);
   justify-content: center;
-  align-items: center;
 }
 </style>

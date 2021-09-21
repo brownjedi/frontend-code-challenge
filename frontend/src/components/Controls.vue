@@ -1,24 +1,27 @@
 <template>
   <div :class="styles.container">
-    <Search />
+    <Search :class="styles.search" :initialValue="searchValue" @onSearch="onSearch" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useCssModule, watch } from 'vue'
-import { usePokemonTypesQuery } from '@/composables/pokemonsTypesQuery'
+import { useStore } from '@/store'
+import { PokedexMutations } from '@/store/modules/pokedex/mutations'
+import { computed, defineComponent, useCssModule } from 'vue'
 import Search from './Search.vue'
 
 export default defineComponent({
   components: { Search },
   setup() {
     const styles = useCssModule()
-    const { types, loading, error } = usePokemonTypesQuery()
-    const value = ref('')
+    const store = useStore()
 
-    watch(value, value => console.log(value))
+    const searchValue = computed(() => store.state.pokedex.query.search)
+    function onSearch(search: string) {
+      store.commit(PokedexMutations.SET_SEARCH, { search })
+    }
 
-    return { styles, types, value, loading }
+    return { styles, onSearch, searchValue }
   },
 })
 </script>
@@ -27,5 +30,9 @@ export default defineComponent({
 .container {
   display: flex;
   margin-bottom: 3rem;
+}
+
+.search {
+  flex: 1 1 auto;
 }
 </style>

@@ -28,21 +28,19 @@
               <div :class="styles.id">#{{ pokemon.id }}</div>
             </div>
             <div :class="styles.classification">{{ pokemon.classification }}</div>
-            <p>{{ pokemon.isFavorite }}</p>
             <p>{{ pokemon.maxCP }}</p>
             <p>{{ pokemon.maxHP }}</p>
             <p>{{ pokemon.fleeRate }}</p>
-            <div :class="styles.tagsContainer">
-              <div :class="styles.label">Resistances</div>
-              <Tags :tags="pokemon.resistant" :class="styles.tags" />
-            </div>
             <div :class="styles.tagsContainer">
               <div :class="styles.label">Types</div>
               <Tags :tags="pokemon.types" :class="styles.tags" />
             </div>
             <div :class="styles.tagsContainer">
+              <div :class="styles.label">Resistances</div>
+              <Tags :tags="pokemon.resistant" :class="styles.tags" />
+            </div>
+            <div :class="styles.tagsContainer">
               <div :class="styles.label">Weaknesses</div>
-
               <Tags :tags="pokemon.weaknesses" :class="styles.tags" />
             </div>
             <Favorite :class="styles.favorite" :large="true" :isFavorite="pokemon.isFavorite" @click="toggleFavorite" />
@@ -64,8 +62,8 @@ import { computed, defineComponent, ref, useCssModule } from 'vue'
 import Tags from './Tags.vue'
 import Favorite from './Favorite.vue'
 import { usePokemonByNameQuery } from '@/composables/pokemonByNameQuery'
-import { FAVORITE_POKEMON_MUTATION, UNFAVORITE_POKEMON_MUTATION } from '@/graphql/graphql-queries'
-import { useMutation } from '@vue/apollo-composable'
+import { useUnFavoritePokemonMutation } from '@/composables/unFavoritePokemonMutation'
+import { useFavoritePokemonMutation } from '@/composables/favoritePokemonMutation'
 
 export default defineComponent({
   components: {
@@ -83,9 +81,8 @@ export default defineComponent({
     const audioRef = ref(null)
     const name = computed(() => props.name.toLowerCase())
     const { pokemon, loading, error } = usePokemonByNameQuery(name.value)
-    const { mutate: favoritePokemon } = useMutation(FAVORITE_POKEMON_MUTATION)
-    const { mutate: unFavoritePokemon } = useMutation(UNFAVORITE_POKEMON_MUTATION)
-
+    const { mutate: favoritePokemon } = useFavoritePokemonMutation()
+    const { mutate: unFavoritePokemon } = useUnFavoritePokemonMutation()
     function playAudio() {
       const el = audioRef.value as unknown as HTMLAudioElement
       el.play()
@@ -114,6 +111,17 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .result {
