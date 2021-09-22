@@ -1,3 +1,5 @@
+import { Reference } from '@apollo/client'
+
 export interface PokemonFilterInput {
   type?: string
   isFavorite?: boolean
@@ -36,6 +38,8 @@ export interface PokemonList {
   limit: number
   offset: number
 }
+
+export type PokemonListApolloCache = Omit<PokemonList, 'edges'> & { edges: Reference[] }
 
 export interface PokemonOverview {
   id: string

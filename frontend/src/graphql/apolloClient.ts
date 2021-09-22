@@ -1,7 +1,9 @@
 /* eslint-disable graphql/template-strings */
+import { PokemonList } from '@/types'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 import { resolvers } from './resolvers'
 import { typeDefs } from './typeDefs'
+import produce from 'immer'
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
@@ -16,19 +18,19 @@ const cache = new InMemoryCache({
       fields: {
         pokemons: {
           keyArgs: ['query', ['search', 'filter', ['type', 'isFavorite']]],
-          merge(existing, incoming, options) {
-            console.log(existing, incoming, options)
+          merge(existing: PokemonList, incoming: PokemonList, { args }) {
             if (!existing) {
               return incoming
             }
 
-            const ids = new Set(existing.edges.map((d: { __ref: unknown }) => d.__ref))
+            const offset = args?.query?.offset || 0
+            const nextState = produce(existing, draftState => {
+              for (let i = 0; i < incoming.edges.length; ++i) {
+                draftState.edges[offset + i] = incoming.edges[i]
+              }
+            })
 
-            return {
-              ...existing,
-              count: incoming.count,
-              edges: [...existing.edges, ...incoming.edges.filter((d: { __ref: unknown }) => !ids.has(d.__ref))],
-            }
+            return nextState
           },
         },
       },
