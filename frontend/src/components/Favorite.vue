@@ -1,8 +1,8 @@
 <template>
-  <div :class="styles.favoriteContainer">
+  <div :class="styles['favorite-container']">
     <div
       :class="[
-        isFavorite ? styles.favorite : styles.notFavorite,
+        isFavorite ? styles.favorite : styles['not-favorite'],
         large ? styles.large : styles.small,
         animated && styles.gelatine,
       ]"

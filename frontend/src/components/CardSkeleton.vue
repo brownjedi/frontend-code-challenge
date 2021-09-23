@@ -13,8 +13,8 @@
         <Skeleton />
       </div>
     </div>
-    <div :class="styles.favoriteContainer">
-      <div :class="styles.notFavorite"></div>
+    <div :class="styles['favorite-container']">
+      <div :class="styles['not-favorite']"></div>
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default defineComponent({
   width: 18.75rem;
   height: 16rem;
   border-radius: 0.625rem;
-  box-shadow: 10px 10px 60px #e9e8e7;
+  box-shadow: 10px 10px 60px var(--box-shadow-color);
   transition: transform 0.5s ease-in-out;
 
   display: flex;

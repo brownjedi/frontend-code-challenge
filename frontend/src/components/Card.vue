@@ -4,6 +4,7 @@
     @mouseenter="setAnimated(true)"
     @mouseleave="setAnimated(false)"
     @click="navigateToPokemon"
+    data-cy="pokemon-card"
   >
     <div :class="styles.header">
       <div :class="styles.img">
@@ -11,7 +12,7 @@
       </div>
       <div :class="styles.id">#{{ id }}</div>
     </div>
-    <div :class="[styles.name, styles.loading]">{{ name }}</div>
+    <div :class="styles.name" data-cy="pokemon-card-name">{{ name }}</div>
     <div :class="styles.classification">{{ classification }}</div>
     <Tags :tags="types" :class="styles.tags" />
     <Favorite :class="styles.favorite" :isFavorite="isFavorite" @click="toggleFavorite" />
@@ -94,7 +95,7 @@ export default defineComponent({
   width: 18.75rem;
   height: 16rem;
   border-radius: 0.625rem;
-  box-shadow: 10px 10px 60px #e9e8e7;
+  box-shadow: 10px 10px 60px var(--box-shadow-color);
   transition: transform 0.5s ease-in-out;
 
   &:hover {

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Card.vue has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <div
+    class="header"
+  >
+    <div
+      class="img"
+    >
+      <img
+        alt="Bulbasaur"
+        src="http://localhost:4000/img/sprites/black-white/normal/bulbasaur.png"
+      />
+    </div>
+    <div
+      class="id"
+    >
+      #001
+    </div>
+  </div>
+  <div
+    class="name"
+  >
+    Bulbasaur
+  </div>
+  <div
+    class="classification"
+  >
+    Seed Pokémon
+  </div>
+  <tags-stub
+    class="tags"
+    tags="Grass,Poison"
+  />
+  <favorite-stub
+    class="favorite"
+    isfavorite="false"
+    large="false"
+  />
+</div>
+`;

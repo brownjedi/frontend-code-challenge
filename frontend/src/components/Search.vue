@@ -1,11 +1,18 @@
 <template>
   <div :class="styles.container">
-    <img src="/img/search.svg" :class="styles.searchIcon" />
-    <input type="text" ref="search" v-model="text" :class="styles.search" placeholder="Search Pokémons" />
+    <img src="/img/search.svg" :class="styles['search-icon']" />
+    <input
+      type="text"
+      ref="search"
+      data-cy="pokemon-search"
+      v-model="text"
+      :class="styles.search"
+      placeholder="Search Pokémons"
+    />
     <img
       src="/img/close.svg"
       tabindex="0"
-      :class="styles.closeIcon"
+      :class="styles['close-icon']"
       @click="onClose"
       @keyup.enter="onClose"
       @keydown.space.prevent="onClose"
@@ -68,7 +75,7 @@ export default defineComponent({
   height: 1.25rem;
   display: block;
   position: absolute;
-  left: 10px;
+  left: 0.625rem;
 }
 
 .close-icon {
@@ -76,7 +83,7 @@ export default defineComponent({
   height: 1.25rem;
   display: block;
   position: absolute;
-  right: 10px;
+  right: 0.625rem;
   cursor: pointer;
   visibility: hidden;
 }

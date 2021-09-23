@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Details.vue when query loading has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <transition-stub>
+    <div
+      class="loading"
+    >
+      <img
+        alt="loading"
+        src="/img/loading.gif"
+      />
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`components/Details.vue when query succeeds renders results correctly when data is present 1`] = `
+<div
+  class="container"
+>
+  <transition-stub>
+    <div
+      class="result"
+    >
+      <div
+        class="left"
+      >
+        <div
+          class="inner-container"
+        >
+          <img
+            alt="Bulbasaur"
+            src="http://localhost:4000/img/artwork/vector/large/bulbasaur.png"
+          />
+        </div>
+      </div>
+      <div
+        class="right"
+      >
+        <div
+          class="info inner-container"
+        >
+          <div
+            class="id-name-audio-container"
+          >
+            <div
+              class="name-audio-container"
+            >
+              <div
+                class="name"
+              >
+                Bulbasaur
+              </div>
+              <div
+                class="audio"
+              >
+                <img
+                  alt="pokemon audio"
+                  src="/img/document--audio.svg"
+                />
+              </div>
+            </div>
+            <div
+              class="id"
+            >
+              #001
+            </div>
+          </div>
+          <div
+            class="classification"
+          >
+            Seed Pokémon
+          </div>
+          <p>
+            951
+          </p>
+          <p>
+            1071
+          </p>
+          <p>
+            0.1
+          </p>
+          <div
+            class="tags-container"
+          >
+            <div
+              class="label"
+            >
+              Types
+            </div>
+            <tags-stub
+              class="tags"
+              tags="Grass,Poison"
+            />
+          </div>
+          <div
+            class="tags-container"
+          >
+            <div
+              class="label"
+            >
+              Resistances
+            </div>
+            <tags-stub
+              class="tags"
+              tags="Water,Electric,Grass,Fighting,Fairy"
+            />
+          </div>
+          <div
+            class="tags-container"
+          >
+            <div
+              class="label"
+            >
+              Weaknesses
+            </div>
+            <tags-stub
+              class="tags"
+              tags="Fire,Ice,Flying,Psychic"
+            />
+          </div>
+          <favorite-stub
+            class="favorite"
+            isfavorite="false"
+            large="true"
+          />
+          <audio>
+            <source
+              src="http://localhost:4000/sounds/1"
+              type="audio/mp3"
+            />
+             Your browser does not support the audio element. 
+          </audio>
+        </div>
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;

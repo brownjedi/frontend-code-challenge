@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/CardList.vue when query loading has the expected html structure 1`] = `
+<div
+  class=""
+>
+  <transition-stub>
+    <div
+      class="loading"
+    >
+      
+      <card-skeleton-stub />
+      <card-skeleton-stub />
+      <card-skeleton-stub />
+      
+    </div>
+  </transition-stub>
+</div>
+`;

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`views/Pokedex.vue has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <filter-stub />
+  <div
+    class="main"
+  >
+    <nav
+      class="nav"
+    >
+      <div
+        class="nav-item"
+      >
+        <router-link-stub
+          ariacurrentvalue="page"
+          class="nav-link"
+          custom="false"
+          replace="false"
+          to="/"
+        />
+      </div>
+      <div
+        class="nav-item"
+      >
+        <router-link-stub
+          ariacurrentvalue="page"
+          class="nav-link"
+          custom="false"
+          replace="false"
+          to="/favorites"
+        />
+      </div>
+    </nav>
+    <h1
+      class="title"
+    >
+      What Pokémon are you looking for?
+    </h1>
+    <controls-stub />
+    <card-list-stub
+      class=""
+    />
+  </div>
+</div>
+`;

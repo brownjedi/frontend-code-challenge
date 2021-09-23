@@ -25,11 +25,11 @@
             :key="pokemon.id"
           />
         </div>
-        <div ref="infiniteLoading"></div>
+        <div ref="infiniteLoading" data-cy="infinite-loading"></div>
       </div>
 
       <!-- No result -->
-      <div v-else :class="styles.noResult">No result :(</div>
+      <div v-else :class="styles['no-result']">No result :(</div>
     </transition>
   </div>
 </template>
@@ -89,8 +89,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
+.container {
+  flex: 1 1 auto;
+  display: flex;
+  & > * {
+    flex: 1 1 auto;
+  }
+}
+
 .error {
   color: red;
+}
+
+.no-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .result,

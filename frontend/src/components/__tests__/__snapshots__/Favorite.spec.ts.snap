@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Favorite.vue has the expected html structure 1`] = `
+<div
+  class="favorite-container"
+>
+  <div
+    class="favorite small"
+  />
+</div>
+`;

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/CardSkeleton.vue has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <div
+    class="header"
+  >
+    <div
+      class="id"
+    >
+      <skeleton-stub />
+    </div>
+  </div>
+  <div
+    class="name"
+  >
+    <skeleton-stub />
+  </div>
+  <div
+    class="classification"
+  >
+    <skeleton-stub />
+  </div>
+  <div
+    class="types"
+  >
+    <div
+      class="type"
+    >
+      <skeleton-stub />
+    </div>
+    <div
+      class="type"
+    >
+      <skeleton-stub />
+    </div>
+  </div>
+  <div
+    class="favorite-container"
+  >
+    <div
+      class="not-favorite"
+    />
+  </div>
+</div>
+`;

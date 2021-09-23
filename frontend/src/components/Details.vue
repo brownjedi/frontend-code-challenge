@@ -12,14 +12,14 @@
       <!-- Result -->
       <div v-else-if="pokemon" :class="styles.result" :key="pokemon.id">
         <div :class="styles.left">
-          <div :class="[styles.img, styles.innerContainer]">
+          <div :class="[styles.img, styles['inner-container']]">
             <img :src="pokemon.image" :alt="pokemon.name" @click="playAudio" />
           </div>
         </div>
         <div :class="styles.right">
-          <div :class="[styles.info, styles.innerContainer]">
-            <div :class="styles.idNameAudioContainer">
-              <div :class="styles.nameAudioContainer">
+          <div :class="[styles.info, styles['inner-container']]">
+            <div :class="styles['id-name-audio-container']">
+              <div :class="styles['name-audio-container']">
                 <div :class="styles.name">{{ pokemon.name }}</div>
                 <div :class="styles.audio">
                   <img src="/img/document--audio.svg" alt="pokemon audio" @click="playAudio" />
@@ -31,15 +31,15 @@
             <p>{{ pokemon.maxCP }}</p>
             <p>{{ pokemon.maxHP }}</p>
             <p>{{ pokemon.fleeRate }}</p>
-            <div :class="styles.tagsContainer">
+            <div :class="styles['tags-container']">
               <div :class="styles.label">Types</div>
               <Tags :tags="pokemon.types" :class="styles.tags" />
             </div>
-            <div :class="styles.tagsContainer">
+            <div :class="styles['tags-container']">
               <div :class="styles.label">Resistances</div>
               <Tags :tags="pokemon.resistant" :class="styles.tags" />
             </div>
-            <div :class="styles.tagsContainer">
+            <div :class="styles['tags-container']">
               <div :class="styles.label">Weaknesses</div>
               <Tags :tags="pokemon.weaknesses" :class="styles.tags" />
             </div>
@@ -52,7 +52,7 @@
         </div>
       </div>
       <!-- No result -->
-      <div v-else :class="styles.noResult">No result :(</div>
+      <div v-else :class="styles['no-result']">No result :(</div>
     </transition>
   </div>
 </template>
@@ -122,6 +122,13 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.error,
+.no-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .result {
