@@ -7,5 +7,6 @@ export interface State {
   }
   ui: {
     color: string
+    listView: boolean
   }
 }

@@ -57,7 +57,6 @@ export default defineComponent({
   min-width: 18rem;
   height: 2rem;
   align-items: center;
-  max-width: 60rem;
   margin: 0 auto;
 }
 

@@ -10,16 +10,18 @@
           <router-link to="/favorites" :class="styles['nav-link']">Favorites</router-link>
         </div>
       </nav>
-      <h1 :class="styles.title">What Pokémon are you looking for?</h1>
+      <h1 :key="showOnlyFavorites" :class="styles.title">
+        {{ showOnlyFavorites ? 'Say hi to your favorite Pokémon!' : 'What Pokémon are you looking for?' }}
+      </h1>
       <Controls />
-      <CardList :class="styles.list" :showOnlyFavorites="showOnlyFavorites" />
+      <PokemonList :class="styles.list" :listView="listView" :showOnlyFavorites="showOnlyFavorites" />
     </main>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, useCssModule } from 'vue'
-import CardList from '@/components/CardList.vue'
+import PokemonList from '@/components/PokemonList.vue'
 import Controls from '@/components/Controls.vue'
 import Filter from '@/components/Filter.vue'
 import { useStore } from '@/store'
@@ -32,7 +34,7 @@ export default defineComponent({
     },
   },
   components: {
-    CardList,
+    PokemonList,
     Controls,
     Filter,
   },
@@ -41,8 +43,9 @@ export default defineComponent({
     const store = useStore()
 
     const color = computed(() => store.state.pokedex.ui.color)
+    const listView = computed(() => store.state.pokedex.ui.listView)
 
-    return { styles, color }
+    return { styles, color, listView }
   },
 })
 </script>

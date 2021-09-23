@@ -1,12 +1,12 @@
-import { flushPromises, shallowMount, mount } from '@vue/test-utils'
-import CardList from '@/components/CardList.vue'
+import { flushPromises, shallowMount } from '@vue/test-utils'
+import PokemonList from '@/components/PokemonList.vue'
 import { POKEMONS_QUERY } from '@/graphql/graphql-queries'
 import { provideApolloClient } from '@vue/apollo-composable'
 import { MockApolloClient, createMockClient } from 'mock-apollo-client'
 import { store } from '@/store'
 import { PokedexMutations } from '@/store/modules/pokedex/mutations'
 
-describe('components/CardList.vue', () => {
+describe('components/PokemonList.vue', () => {
   let requestHandler: jest.Mock
   let mockClient: MockApolloClient
 
@@ -23,24 +23,24 @@ describe('components/CardList.vue', () => {
 
   describe('when query loading', () => {
     it('has the expected html structure', () => {
-      const wrapper = shallowMount(CardList)
+      const wrapper = shallowMount(PokemonList)
       expect(wrapper.element).toMatchSnapshot()
     })
 
     it('sets the graphql query arguments to show only favorites', () => {
-      shallowMount(CardList, { props: { showOnlyFavorites: true } })
+      shallowMount(PokemonList, { props: { showOnlyFavorites: true } })
 
       expect(requestHandler.mock.calls[0][0].query.filter.isFavorite).toBe(true)
     })
 
     it('sets the graphql query arguments to all', () => {
-      shallowMount(CardList, { props: { showOnlyFavorites: undefined } })
+      shallowMount(PokemonList, { props: { showOnlyFavorites: undefined } })
 
       expect(requestHandler.mock.calls[0][0].query.filter.isFavorite).toBe(undefined)
     })
 
     it('sends the filter type properly to graphql when state changed', async () => {
-      const wrapper = shallowMount(CardList, {
+      const wrapper = shallowMount(PokemonList, {
         global: {
           plugins: [store],
         },
@@ -56,7 +56,7 @@ describe('components/CardList.vue', () => {
     })
 
     it('sends the search properly to graphql when state changed', async () => {
-      const wrapper = shallowMount(CardList, {
+      const wrapper = shallowMount(PokemonList, {
         global: {
           plugins: [store],
         },
@@ -74,7 +74,7 @@ describe('components/CardList.vue', () => {
     it('shows error message', async () => {
       requestHandler.mockRejectedValueOnce(new Error('Graphql query failed'))
 
-      const wrapper = shallowMount(CardList)
+      const wrapper = shallowMount(PokemonList)
 
       expect(requestHandler).toHaveBeenCalledTimes(1)
 
@@ -93,7 +93,7 @@ describe('components/CardList.vue', () => {
         data: { pokemons: null },
       })
 
-      const wrapper = shallowMount(CardList)
+      const wrapper = shallowMount(PokemonList)
 
       expect(requestHandler).toHaveBeenCalledTimes(1)
 

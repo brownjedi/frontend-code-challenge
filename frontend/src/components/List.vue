@@ -6,16 +6,21 @@
     @click="navigateToPokemon"
     data-cy="pokemon-card"
   >
-    <div :class="styles.header">
-      <div :class="styles.img">
-        <img :src="currentSprite" :alt="name" />
-      </div>
-      <div :class="styles.id">#{{ id }}</div>
+    <div :class="styles['name-classification-fav-container']">
+      <div :class="styles.name" data-cy="pokemon-card-name">{{ name }}</div>
+      <div :class="styles.classification">{{ classification }}</div>
+      <Favorite :class="styles.favorite" :isFavorite="isFavorite" @click="toggleFavorite" />
     </div>
-    <div :class="styles.name" data-cy="pokemon-card-name">{{ name }}</div>
-    <div :class="styles.classification">{{ classification }}</div>
-    <Tags :tags="types" :class="styles.tags" />
-    <Favorite :class="styles.favorite" :isFavorite="isFavorite" @click="toggleFavorite" />
+
+    <div :class="styles['header-tags-container']">
+      <div :class="styles.header">
+        <div :class="styles.img">
+          <img :src="currentSprite" :alt="name" />
+        </div>
+        <div :class="styles.id">#{{ id }}</div>
+      </div>
+      <Tags :tags="types" :class="styles.tags" />
+    </div>
   </div>
 </template>
 
@@ -91,20 +96,17 @@ export default defineComponent({
 
 <style lang="scss" module>
 .container {
-  text-align: center;
-  width: 18.75rem;
-  height: 16rem;
   border-radius: 0.625rem;
   box-shadow: 10px 10px 60px var(--box-shadow-color);
   transition: transform 0.5s ease-in-out;
+  padding: 1rem;
 
   &:hover {
-    transform: scale(1.125);
     cursor: pointer;
   }
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .header {
@@ -114,7 +116,7 @@ export default defineComponent({
 .id {
   color: var(--number-title-color);
   font-weight: 500;
-  font-size: 6.25rem;
+  font-size: 4rem;
 }
 
 .img {
@@ -138,19 +140,30 @@ export default defineComponent({
 .classification {
   font-size: 0.8125rem;
   font-weight: 300;
-  padding-top: 0.3rem;
+  padding-bottom: 1rem;
+  flex: 1 1 auto;
 }
 
 .tags {
   position: relative;
   padding-top: 1rem;
-  align-self: center;
+  flex: 1 1 auto;
+  font-size: 0.875rem;
 }
 
 .favorite {
+  align-self: flex-start;
+}
+
+.name-classification-fav-container {
+  display: flex;
+  flex-direction: column;
   flex: 1 1 auto;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  align-self: flex-end;
+}
+
+.header-tags-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 </style>

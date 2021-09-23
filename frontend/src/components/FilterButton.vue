@@ -42,6 +42,7 @@ export default defineComponent({
   border: none;
   cursor: pointer;
   color: v-bind(btnColor);
+  transition: background-color 0.5s ease;
 
   &:hover {
     background-color: v-bind(btnColor);

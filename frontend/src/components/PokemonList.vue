@@ -2,8 +2,15 @@
   <div :class="styles.container">
     <transition name="fade">
       <!-- Loading -->
-      <div v-if="loading" :class="styles.loading">
-        <CardSkeleton v-for="index in 3" :key="index" />
+      <!-- disable this as it's causing weird flash of loading because of how fast -->
+      <!-- data is showing up -->
+      <div v-show="false" v-if="loading">
+        <div v-if="listView" :class="[styles.loading, styles.list]">
+          <ListSkeleton v-for="index in 3" :key="index" />
+        </div>
+        <div v-else :class="styles.loading">
+          <CardSkeleton v-for="index in 3" :key="index" />
+        </div>
       </div>
 
       <!-- Error -->
@@ -11,7 +18,21 @@
 
       <!-- Result -->
       <div v-else-if="pokemons">
-        <div :class="styles.result">
+        <div v-if="listView" :class="[styles.result, styles.list]">
+          <List
+            v-for="pokemon in pokemons"
+            :id="pokemon.id"
+            :image="pokemon.image"
+            :normalSprite="pokemon.sprites.normal"
+            :animatedSprite="pokemon.sprites.animated"
+            :name="pokemon.name"
+            :classification="pokemon.classification"
+            :types="pokemon.types"
+            :isFavorite="pokemon.isFavorite"
+            :key="pokemon.id"
+          />
+        </div>
+        <div v-else :class="styles.result">
           <Card
             v-for="pokemon in pokemons"
             :id="pokemon.id"
@@ -38,6 +59,8 @@
 import { computed, defineComponent, onUnmounted, reactive, ref, useCssModule } from 'vue'
 import Card from './Card.vue'
 import CardSkeleton from './CardSkeleton.vue'
+import List from './List.vue'
+import ListSkeleton from './ListSkeleton.vue'
 import { usePokemonsQuery } from '@/composables/pokemonsQuery'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useStore } from '@/store'
@@ -48,10 +71,16 @@ export default defineComponent({
       type: Boolean,
       default: undefined,
     },
+    listView: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     Card,
+    List,
     CardSkeleton,
+    ListSkeleton,
   },
   setup(props) {
     const styles = useCssModule()
@@ -110,8 +139,15 @@ export default defineComponent({
 .result,
 .loading {
   display: grid;
-  grid-gap: 3rem;
+  gap: 3rem;
   grid-template-columns: repeat(auto-fill, 18.75rem);
   justify-content: center;
+}
+
+.loading.list,
+.result.list {
+  grid-template-columns: unset;
+  justify-content: stretch;
+  gap: 1rem;
 }
 </style>

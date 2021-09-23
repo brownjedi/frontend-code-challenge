@@ -18,10 +18,10 @@
 .fade-enter-active {
   transition: opacity 0.5s ease;
 }
-
+/*
 .fade-leave-active {
   transition: opacity 0s ease;
-}
+} */
 
 .fade-enter-from,
 .fade-leave-to {

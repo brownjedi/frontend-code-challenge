@@ -1,11 +1,7 @@
 <template>
-  <div :class="styles['favorite-container']">
+  <div :class="styles.container">
     <div
-      :class="[
-        isFavorite ? styles.favorite : styles['not-favorite'],
-        large ? styles.large : styles.small,
-        animated && styles.gelatine,
-      ]"
+      :class="[isList ? styles.list : styles.card, animated && styles.gelatine, styles.inner]"
       @click.stop="handleClick"
       @animationend="animated = false"
     ></div>
@@ -17,12 +13,9 @@ import { defineComponent, ref, useCssModule } from 'vue'
 
 export default defineComponent({
   props: {
-    isFavorite: {
+    isList: {
       type: Boolean,
       required: true,
-    },
-    large: {
-      type: Boolean,
       default: false,
     },
   },
@@ -42,31 +35,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
-.favorite-container {
+.container {
   display: flex;
   align-items: flex-end;
   cursor: pointer;
+
+  .inner {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.25rem;
+  }
 
   & > * {
     flex: 1;
   }
 
-  .small {
-    width: 1.75rem;
-    height: 1.75rem;
+  .list {
+    background: url('/img/show-data--cards.svg') no-repeat;
   }
 
-  .large {
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-
-  .favorite {
-    background: url('/img/pokeball_color.svg') no-repeat;
-  }
-
-  .not-favorite {
-    background: url('/img/pokeball_bw.svg') no-repeat;
+  .card {
+    background: url('/img/thumbnail--2.svg') no-repeat;
   }
 
   .gelatine {

@@ -12,6 +12,7 @@ const state: State = {
   },
   ui: {
     color: getComputedStyle(document.documentElement).getPropertyValue(`--main-text-color`),
+    listView: false,
   },
 }
 

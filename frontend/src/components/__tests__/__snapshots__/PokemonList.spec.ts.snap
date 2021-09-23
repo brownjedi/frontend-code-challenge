@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/CardList.vue when query loading has the expected html structure 1`] = `
+exports[`components/PokemonList.vue when query loading has the expected html structure 1`] = `
 <div
   class=""
 >
@@ -8,11 +8,11 @@ exports[`components/CardList.vue when query loading has the expected html struct
     <div
       class="loading"
     >
-      
+
       <card-skeleton-stub />
       <card-skeleton-stub />
       <card-skeleton-stub />
-      
+
     </div>
   </transition-stub>
 </div>
