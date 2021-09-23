@@ -44,8 +44,6 @@ export default defineComponent({
 <style lang="scss" module>
 .favorite-container {
   align-self: flex-end;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
   display: flex;
   align-items: flex-end;
   cursor: pointer;

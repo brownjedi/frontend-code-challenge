@@ -149,5 +149,7 @@ export default defineComponent({
 
 .favorite {
   flex: 1 1 auto;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 </style>

@@ -7,10 +7,6 @@
 </template>
 
 <style lang="scss">
-@import './styles/variables';
-@import './styles/breakpoints';
-@import '~@vueform/multiselect/themes/default.css';
-
 #app {
   font-family: 'Rubik', sans-serif;
   -webkit-font-smoothing: antialiased;

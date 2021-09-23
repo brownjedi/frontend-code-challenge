@@ -32,13 +32,11 @@ export default defineComponent({
 <style lang="scss" module>
 .tags {
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .tag {
   text-transform: uppercase;
-}
-
-.tags > * + * {
-  margin-left: 1rem;
 }
 </style>

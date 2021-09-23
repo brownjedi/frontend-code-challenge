@@ -106,8 +106,6 @@ export default defineComponent({
 
 <style lang="scss" module>
 .container {
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,6 +142,10 @@ export default defineComponent({
     align-items: center;
     margin: 3rem;
   }
+
+  @media (max-width: $break-768) {
+    flex-direction: column;
+  }
 }
 
 .left {
@@ -153,6 +155,9 @@ export default defineComponent({
   flex: 1 1 50%;
   display: flex;
   justify-content: flex-end;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 
   img {
     display: block;
@@ -160,6 +165,16 @@ export default defineComponent({
     height: auto;
     max-width: 40rem;
     cursor: pointer;
+  }
+
+  @media (max-width: $break-768) {
+    height: auto;
+    position: relative;
+    border-bottom-left-radius: 50% 15%;
+    border-bottom-right-radius: 50% 15%;
+    img {
+      max-width: 20rem;
+    }
   }
 }
 
@@ -174,7 +189,7 @@ export default defineComponent({
   }
 
   .tags-container {
-    align-self: flex-start;
+    align-self: stretch;
     padding-top: 2rem;
 
     .tags {
@@ -192,6 +207,18 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     font-size: 3rem;
+
+    @media (max-width: $break-1024) {
+      flex-direction: column-reverse;
+    }
+
+    @media (max-width: $break-768) {
+      flex-direction: row;
+    }
+
+    @media (max-width: $break-480) {
+      flex-direction: column-reverse;
+    }
   }
 
   .name-audio-container {

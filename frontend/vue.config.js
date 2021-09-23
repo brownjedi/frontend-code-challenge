@@ -9,6 +9,12 @@ module.exports = {
       css: {
         localsConvention: 'camelCase',
       },
+      sass: {
+        prependData: `
+          @import "@/styles/_variables.scss";
+          @import "@/styles/_breakpoints.scss";
+        `,
+      },
     },
   },
   configureWebpack: {
