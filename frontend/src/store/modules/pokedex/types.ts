@@ -5,4 +5,7 @@ export interface State {
       type?: string
     }
   }
+  ui: {
+    color: string
+  }
 }

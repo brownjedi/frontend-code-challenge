@@ -10,6 +10,9 @@ const state: State = {
       type: '',
     },
   },
+  ui: {
+    color: getComputedStyle(document.documentElement).getPropertyValue(`--main-text-color`),
+  },
 }
 
 export { State }

@@ -1,27 +1,28 @@
 <template>
   <div :class="styles.container">
     <Filter />
-    <div :class="styles.main">
+    <main :class="styles.main">
       <nav :class="styles.nav">
-        <div :class="styles.navItem">
-          <router-link to="/" :class="styles.navLink">All</router-link>
+        <div :class="styles['nav-item']">
+          <router-link to="/" :class="styles['nav-link']">All</router-link>
         </div>
-        <div :class="styles.navItem">
-          <router-link to="/favorites" :class="styles.navLink">Favorites</router-link>
+        <div :class="styles['nav-item']">
+          <router-link to="/favorites" :class="styles['nav-link']">Favorites</router-link>
         </div>
       </nav>
       <h1 :class="styles.title">What Pokémon are you looking for?</h1>
       <Controls />
       <CardList :class="styles.list" :showOnlyFavorites="showOnlyFavorites" />
-    </div>
+    </main>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useCssModule } from 'vue'
+import { computed, defineComponent, useCssModule } from 'vue'
 import CardList from '@/components/CardList.vue'
 import Controls from '@/components/Controls.vue'
 import Filter from '@/components/Filter.vue'
+import { useStore } from '@/store'
 
 export default defineComponent({
   props: {
@@ -37,10 +38,11 @@ export default defineComponent({
   },
   setup() {
     const styles = useCssModule()
-    function onSearch(val: string) {
-      console.log('hahahaha', val)
-    }
-    return { styles, onSearch }
+    const store = useStore()
+
+    const color = computed(() => store.state.pokedex.ui.color)
+
+    return { styles, color }
   },
 })
 </script>
@@ -65,6 +67,7 @@ export default defineComponent({
 .title {
   line-height: 1.25;
   align-self: center;
+  transition: color 0.5s ease-in-out;
 }
 
 .list {
@@ -83,11 +86,14 @@ export default defineComponent({
   .nav-link {
     text-decoration: none;
     color: var(--main-text-color);
+    color: v-bind(color);
     font-weight: 500;
+    transition: border-bottom-color 0.5s ease-in-out, color 0.5s ease-in-out;
 
     &:global(.router-link-active) {
       margin-bottom: -2px;
-      border-bottom: 2px solid var(--fire-text-color);
+      border-bottom: 2px solid var(--main-text-color);
+      /* border-bottom-color: v-bind(color); */
     }
   }
 }

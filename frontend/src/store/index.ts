@@ -6,10 +6,11 @@ import { store as pokedex, PokedexStore } from './modules/pokedex'
 export type Store = PokedexStore<Pick<RootState, 'pokedex'>>
 
 const isProd = process.env.NODE_ENV === 'production'
+const isTest = process.env.NODE_ENV === 'test'
 
 const plugins = []
 
-if (!isProd) {
+if (!isProd && !isTest) {
   plugins.push(createLogger())
 }
 

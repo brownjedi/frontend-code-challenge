@@ -4,7 +4,7 @@
 
   --number-title-color: #e9e7e8;
 
-  --all-text-color: #66625c;
+  --all-text-color: var(--main-text-color);
   --grass-text-color: #22c02a;
   --poison-text-color: #a040a0;
   --fire-text-color: #f08030;
@@ -22,4 +22,6 @@
   --ice-text-color: #98d8d8;
   --ghost-text-color: #705898;
   --dragon-text-color: #7038f8;
+
+  --box-shadow-color: #e9e8e7;
 }

@@ -1,5 +1,10 @@
 <template>
-  <button type="button" :class="[styles.button, active && styles.active]" @click="$emit('click', text)">
+  <button
+    type="button"
+    data-cy="filter-button"
+    :class="[styles.button, active && styles.active]"
+    @click="$emit('click', text, color)"
+  >
     {{ text }}
   </button>
 </template>
@@ -21,8 +26,11 @@ export default defineComponent({
   setup(props) {
     const styles = useCssModule()
     const btnColor = computed(() => `var(--${props.text.toLowerCase()}-text-color)`)
-    const btnColorHover = computed(() => `rgba(var(--${props.text.toLowerCase()}-text-color),  0.2)`)
-    return { styles, btnColor, btnColorHover }
+    const color = computed(() =>
+      getComputedStyle(document.documentElement).getPropertyValue(`--${props.text.toLowerCase()}-text-color`)
+    )
+
+    return { styles, btnColor, color }
   },
 })
 </script>

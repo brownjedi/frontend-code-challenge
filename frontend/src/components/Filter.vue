@@ -14,14 +14,14 @@
         <FilterButton
           type="button"
           :class="styles.button"
-          @click="val => onClick('')"
+          @click="(val, clr) => onClick('', clr)"
           :active="selectedType === ''"
           text="All"
         />
         <FilterButton
           type="button"
           :class="styles.button"
-          @click="val => onClick(val)"
+          @click="(val, clr) => onClick(val, clr)"
           :active="selectedType === type"
           v-for="type in types"
           :key="type"
@@ -30,7 +30,7 @@
       </div>
 
       <!-- No result -->
-      <div v-else :class="styles.noResult">No result :(</div>
+      <div v-else :class="styles['no-result']">No result :(</div>
     </transition>
   </div>
 </template>
@@ -51,8 +51,9 @@ export default defineComponent({
     const selectedType = computed(() => store.state.pokedex.query.filter.type)
     const { types, loading, error } = usePokemonTypesQuery()
 
-    function onClick(type: string) {
+    function onClick(type: string, color: string) {
       store.commit(PokedexMutations.SET_TYPE, { type })
+      store.commit(PokedexMutations.SET_COLOR, { color })
     }
 
     return { styles, types, loading, error, selectedType, onClick }
@@ -63,7 +64,7 @@ export default defineComponent({
 <style lang="scss" module>
 .container {
   height: 100vh;
-  box-shadow: 0 0 40px #e9e8e7;
+  box-shadow: 0 0 40px var(--box-shadow-color);
   position: sticky;
   top: 0;
   flex: 0 0 auto;
@@ -72,7 +73,9 @@ export default defineComponent({
 }
 
 .loading,
-.result {
+.result,
+.error,
+.no-result {
   display: flex;
   flex-direction: column;
 }
