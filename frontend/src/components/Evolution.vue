@@ -40,7 +40,7 @@ export default defineComponent({
     const styles = useCssModule()
     const router = useRouter()
     const imgLoaded = ref(false)
-    const { pokemon, loading, error } = usePokemonByNameQuery(props.name)
+    const { pokemon, loading, error } = usePokemonByNameQuery(props.name.toLowerCase())
 
     watch(loading, val => !!val && (imgLoaded.value = false))
 
@@ -87,5 +87,13 @@ export default defineComponent({
     margin-bottom: 0.35rem;
     font-weight: 500;
   }
+}
+
+.no-result {
+  display: flex;
+}
+
+.error {
+  color: red;
 }
 </style>

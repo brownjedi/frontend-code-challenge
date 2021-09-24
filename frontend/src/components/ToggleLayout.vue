@@ -15,7 +15,6 @@ export default defineComponent({
   props: {
     isList: {
       type: Boolean,
-      required: true,
       default: false,
     },
   },

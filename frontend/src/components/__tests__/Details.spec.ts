@@ -244,7 +244,7 @@ describe('components/Details.vue', () => {
       // wait for apollo results
       await flushPromises()
 
-      const imgEl = wrapper.findAll('img')
+      const imgEl = wrapper.findAll('[data-cy=img-play-audio]')
 
       // there are only two images once the data is loaded (for now)
       // one is the pokemon image and other is the speaker icon

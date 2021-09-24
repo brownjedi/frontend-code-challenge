@@ -33,6 +33,7 @@ exports[`components/Details.vue when query succeeds renders results correctly wh
         >
           <img
             alt="Bulbasaur"
+            data-cy="img-play-audio"
             src="http://localhost:4000/img/artwork/vector/large/bulbasaur.png"
           />
         </div>
@@ -59,6 +60,7 @@ exports[`components/Details.vue when query succeeds renders results correctly wh
               >
                 <img
                   alt="pokemon audio"
+                  data-cy="img-play-audio"
                   src="/img/document--audio.svg"
                 />
               </div>
@@ -74,15 +76,157 @@ exports[`components/Details.vue when query succeeds renders results correctly wh
           >
             Seed Pokémon
           </div>
-          <p>
-            951
-          </p>
-          <p>
-            1071
-          </p>
-          <p>
-            0.1
-          </p>
+          <div
+            class="stats"
+          >
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Max CP
+              </div>
+              <p>
+                951
+              </p>
+            </div>
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Max HP
+              </div>
+              <p>
+                1071
+              </p>
+            </div>
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Flee Rate
+              </div>
+              <p>
+                0.1
+              </p>
+            </div>
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Height
+              </div>
+              <p>
+                0.61m - 0.79m
+              </p>
+            </div>
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Weight
+              </div>
+              <p>
+                6.04kg - 7.76kg
+              </p>
+            </div>
+          </div>
+          <hr
+            class="hr"
+          />
+          <div
+            class="attacks"
+          >
+            <div
+              class=""
+            >
+              <div
+                class="label"
+              >
+                Special Attacks
+              </div>
+              
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Grass"
+                  src="/img/types/grass.png"
+                />
+                <p>
+                  Power Whip
+                </p>
+              </div>
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Grass"
+                  src="/img/types/grass.png"
+                />
+                <p>
+                  Seed Bomb
+                </p>
+              </div>
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Poison"
+                  src="/img/types/poison.png"
+                />
+                <p>
+                  Sludge Bomb
+                </p>
+              </div>
+              
+            </div>
+            <div
+              class=""
+            >
+              <div
+                class="label"
+              >
+                Fast Attacks
+              </div>
+              
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Normal"
+                  src="/img/types/normal.png"
+                />
+                <p>
+                  Tackle
+                </p>
+              </div>
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Grass"
+                  src="/img/types/grass.png"
+                />
+                <p>
+                  Vine Whip
+                </p>
+              </div>
+              
+            </div>
+          </div>
+          <hr
+            class="hr"
+          />
           <div
             class="tags-container"
           >
@@ -122,6 +266,24 @@ exports[`components/Details.vue when query succeeds renders results correctly wh
               tags="Fire,Ice,Flying,Psychic"
             />
           </div>
+          <hr
+            class="hr"
+          />
+          <div
+            class="evolutions"
+          >
+            <div
+              class="label"
+            >
+              Evolutions
+            </div>
+            <evolutions-stub
+              evolutions="[object Object],[object Object],[object Object]"
+            />
+          </div>
+          <hr
+            class="hr"
+          />
           <favorite-stub
             class="favorite"
             isfavorite="false"

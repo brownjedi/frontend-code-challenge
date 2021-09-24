@@ -13,7 +13,7 @@
       <div v-else-if="pokemon" :class="styles.result" :key="pokemon.id">
         <div :class="styles.left">
           <div :class="[styles.img, styles['inner-container']]">
-            <img :src="pokemon.image" :alt="pokemon.name" @click="playAudio" />
+            <img data-cy="img-play-audio" :src="pokemon.image" :alt="pokemon.name" @click="playAudio" />
           </div>
         </div>
         <div :class="styles.right">
@@ -22,7 +22,7 @@
               <div :class="styles['name-audio-container']">
                 <div :class="styles.name">{{ pokemon.name }}</div>
                 <div :class="styles.audio">
-                  <img src="/img/document--audio.svg" alt="pokemon audio" @click="playAudio" />
+                  <img data-cy="img-play-audio" src="/img/document--audio.svg" alt="pokemon audio" @click="playAudio" />
                 </div>
               </div>
               <div :class="styles.id">#{{ pokemon.id }}</div>
@@ -209,7 +209,7 @@ export default defineComponent({
     margin: 3rem;
   }
 
-  @media (max-width: $break-768) {
+  @media (max-width: var(--break-768)) {
     flex-direction: column;
   }
 }
@@ -233,7 +233,7 @@ export default defineComponent({
     cursor: pointer;
   }
 
-  @media (max-width: $break-768) {
+  @media (max-width: var(--break-768)) {
     height: auto;
     position: relative;
     border-bottom-left-radius: 50% 15%;
@@ -278,15 +278,15 @@ export default defineComponent({
     justify-content: space-between;
     font-size: 3rem;
 
-    @media (max-width: $break-1024) {
+    @media (max-width: var(--break-1024)) {
       flex-direction: column-reverse;
     }
 
-    @media (max-width: $break-768) {
+    @media (max-width: var(--break-768)) {
       flex-direction: row;
     }
 
-    @media (max-width: $break-480) {
+    @media (max-width: var(--break-480)) {
       flex-direction: column-reverse;
     }
   }

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Evolutions.vue has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <template
+    class="evolution"
+  >
+    
+    
+    <!--v-if-->
+    <evolution-stub
+      id="001"
+      name="Bulbasaur"
+    />
+    
+    
+    <img
+      alt="arrow"
+      class="arrow"
+      src="/img/arrow--right.svg"
+    />
+    <evolution-stub
+      id="002"
+      name="Ivysaur"
+    />
+    
+    
+    <img
+      alt="arrow"
+      class="arrow"
+      src="/img/arrow--right.svg"
+    />
+    <evolution-stub
+      id="003"
+      name="Venusaur"
+    />
+    
+    
+  </template>
+</div>
+`;
