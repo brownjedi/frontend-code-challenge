@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Tags.vue has the expected html structure 1`] = `
+<div
+  class="tags"
+>
+  
+  <div
+    class="tag"
+  >
+    Fire
+  </div>
+  <div
+    class="tag"
+  >
+    Ice
+  </div>
+  
+</div>
+`;

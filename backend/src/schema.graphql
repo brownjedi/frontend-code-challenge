@@ -21,8 +21,14 @@ type Pokemon {
     evolutionRequirements: PokemonEvolutionRequirement
     maxHP: Int!
     image: String!
+    sprites: Sprites!
     sound: String!
     isFavorite: Boolean!
+}
+
+type Sprites {
+    normal: String!
+    animated: String!
 }
 
 type PokemonConnection {

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Evolution.vue when query loading has the expected html structure 1`] = `
+<div
+  class=""
+>
+  <transition-stub>
+    <div
+      class="loading"
+    >
+      <img
+        alt="loading"
+        src="/img/pokeball_bw.svg"
+      />
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`components/Evolution.vue when query succeeds renders results correctly when data is present 1`] = `
+<div
+  class=""
+>
+  <transition-stub>
+    <div
+      class="result"
+      style="display: none;"
+    >
+      <img
+        alt="Bulbasaur"
+        src="http://localhost:4000/img/artwork/vector/large/bulbasaur.png"
+      />
+      <p
+        class="id"
+      >
+        #001
+      </p>
+      <p
+        class=""
+      >
+        Bulbasaur
+      </p>
+    </div>
+  </transition-stub>
+</div>
+`;

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`views/Pokemon.vue has the expected html structure 1`] = `
+<div
+  class=""
+>
+  <details-stub
+    name="Bulbasaur"
+  />
+</div>
+`;

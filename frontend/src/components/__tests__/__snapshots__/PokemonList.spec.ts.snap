@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/PokemonList.vue when query loading has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <transition-stub>
+    <div
+      style="display: none;"
+    >
+      <div
+        class="loading"
+      >
+        
+        <card-skeleton-stub />
+        <card-skeleton-stub />
+        <card-skeleton-stub />
+        
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;

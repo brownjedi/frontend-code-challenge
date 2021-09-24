@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Controls.vue has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <search-stub
+    class="search"
+    initialvalue=""
+  />
+  <toggle-layout-stub
+    islist="false"
+  />
+</div>
+`;

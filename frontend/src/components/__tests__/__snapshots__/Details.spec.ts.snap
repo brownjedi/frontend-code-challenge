@@ -1,0 +1,304 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Details.vue when query loading has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <transition-stub>
+    <div
+      class="loading"
+    >
+      <img
+        alt="loading"
+        src="/img/loading.gif"
+      />
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`components/Details.vue when query succeeds renders results correctly when data is present 1`] = `
+<div
+  class="container"
+>
+  <transition-stub>
+    <div
+      class="result"
+    >
+      <div
+        class="left"
+      >
+        <div
+          class="inner-container"
+        >
+          <img
+            alt="Bulbasaur"
+            data-cy="img-play-audio"
+            src="http://localhost:4000/img/artwork/vector/large/bulbasaur.png"
+          />
+        </div>
+      </div>
+      <div
+        class="right"
+      >
+        <div
+          class="info inner-container"
+        >
+          <div
+            class="id-name-audio-container"
+          >
+            <div
+              class="name-audio-container"
+            >
+              <div
+                class="name"
+              >
+                Bulbasaur
+              </div>
+              <div
+                class="audio"
+              >
+                <img
+                  alt="pokemon audio"
+                  data-cy="img-play-audio"
+                  src="/img/document--audio.svg"
+                />
+              </div>
+            </div>
+            <div
+              class="id"
+            >
+              #001
+            </div>
+          </div>
+          <div
+            class="classification"
+          >
+            Seed Pokémon
+          </div>
+          <div
+            class="stats"
+          >
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Max CP
+              </div>
+              <p>
+                951
+              </p>
+            </div>
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Max HP
+              </div>
+              <p>
+                1071
+              </p>
+            </div>
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Flee Rate
+              </div>
+              <p>
+                0.1
+              </p>
+            </div>
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Height
+              </div>
+              <p>
+                0.61m - 0.79m
+              </p>
+            </div>
+            <div
+              class="stat"
+            >
+              <div
+                class="label"
+              >
+                Weight
+              </div>
+              <p>
+                6.04kg - 7.76kg
+              </p>
+            </div>
+          </div>
+          <hr
+            class="hr"
+          />
+          <div
+            class="attacks"
+          >
+            <div
+              class=""
+            >
+              <div
+                class="label"
+              >
+                Special Attacks
+              </div>
+              
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Grass"
+                  src="/img/types/grass.png"
+                />
+                <p>
+                  Power Whip
+                </p>
+              </div>
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Grass"
+                  src="/img/types/grass.png"
+                />
+                <p>
+                  Seed Bomb
+                </p>
+              </div>
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Poison"
+                  src="/img/types/poison.png"
+                />
+                <p>
+                  Sludge Bomb
+                </p>
+              </div>
+              
+            </div>
+            <div
+              class=""
+            >
+              <div
+                class="label"
+              >
+                Fast Attacks
+              </div>
+              
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Normal"
+                  src="/img/types/normal.png"
+                />
+                <p>
+                  Tackle
+                </p>
+              </div>
+              <div
+                class="attack"
+              >
+                <img
+                  alt="Grass"
+                  src="/img/types/grass.png"
+                />
+                <p>
+                  Vine Whip
+                </p>
+              </div>
+              
+            </div>
+          </div>
+          <hr
+            class="hr"
+          />
+          <div
+            class="tags-container"
+          >
+            <div
+              class="label"
+            >
+              Types
+            </div>
+            <tags-stub
+              class="tags"
+              tags="Grass,Poison"
+            />
+          </div>
+          <div
+            class="tags-container"
+          >
+            <div
+              class="label"
+            >
+              Resistances
+            </div>
+            <tags-stub
+              class="tags"
+              tags="Water,Electric,Grass,Fighting,Fairy"
+            />
+          </div>
+          <div
+            class="tags-container"
+          >
+            <div
+              class="label"
+            >
+              Weaknesses
+            </div>
+            <tags-stub
+              class="tags"
+              tags="Fire,Ice,Flying,Psychic"
+            />
+          </div>
+          <hr
+            class="hr"
+          />
+          <div
+            class="evolutions"
+          >
+            <div
+              class="label"
+            >
+              Evolutions
+            </div>
+            <evolutions-stub
+              evolutions="[object Object],[object Object],[object Object]"
+            />
+          </div>
+          <hr
+            class="hr"
+          />
+          <favorite-stub
+            class="favorite"
+            isfavorite="false"
+            large="true"
+          />
+          <audio>
+            <source
+              src="http://localhost:4000/sounds/1"
+              type="audio/mp3"
+            />
+             Your browser does not support the audio element. 
+          </audio>
+        </div>
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;

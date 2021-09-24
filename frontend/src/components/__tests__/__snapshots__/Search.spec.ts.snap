@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Search.vue has the expected html structure 1`] = `
+<div
+  class="container"
+>
+  <img
+    class="search-icon"
+    src="/img/search.svg"
+  />
+  <input
+    class="search"
+    data-cy="pokemon-search"
+    placeholder="Search Pokémons"
+    type="text"
+  />
+  <img
+    class="close-icon"
+    src="/img/close.svg"
+    tabindex="0"
+  />
+</div>
+`;
