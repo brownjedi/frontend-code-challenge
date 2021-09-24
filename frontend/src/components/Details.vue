@@ -28,9 +28,45 @@
               <div :class="styles.id">#{{ pokemon.id }}</div>
             </div>
             <div :class="styles.classification">{{ pokemon.classification }}</div>
-            <p>{{ pokemon.maxCP }}</p>
-            <p>{{ pokemon.maxHP }}</p>
-            <p>{{ pokemon.fleeRate }}</p>
+            <div :class="styles.stats">
+              <div :class="styles.stat">
+                <div :class="styles.label">Max CP</div>
+                <p>{{ pokemon.maxCP }}</p>
+              </div>
+              <div :class="styles.stat">
+                <div :class="styles.label">Max HP</div>
+                <p>{{ pokemon.maxHP }}</p>
+              </div>
+              <div :class="styles.stat">
+                <div :class="styles.label">Flee Rate</div>
+                <p>{{ pokemon.fleeRate }}</p>
+              </div>
+              <div :class="styles.stat">
+                <div :class="styles.label">Height</div>
+                <p>{{ pokemon.height.minimum }} - {{ pokemon.height.maximum }}</p>
+              </div>
+              <div :class="styles.stat">
+                <div :class="styles.label">Weight</div>
+                <p>{{ pokemon.weight.minimum }} - {{ pokemon.weight.maximum }}</p>
+              </div>
+            </div>
+            <hr :class="styles.hr" />
+            <div :class="styles.attacks">
+              <div :class="styles.special">
+                <div :class="styles.label">Special Attacks</div>
+                <div :class="styles.attack" :key="attack.name" v-for="attack in pokemon.attacks.special">
+                  <img :src="`/img/types/${attack.type.toLowerCase()}.png`" :alt="attack.type" />
+                  <p>{{ attack.name }}</p>
+                </div>
+              </div>
+              <div :class="styles.fast">
+                <div :class="styles.label">Fast Attacks</div>
+                <div :class="styles.attack" :key="attack.name" v-for="attack in pokemon.attacks.fast">
+                  <img :src="`/img/types/${attack.type.toLowerCase()}.png`" :alt="attack.type" />
+                  <p>{{ attack.name }}</p>
+                </div>
+              </div>
+            </div>
             <div :class="styles['tags-container']">
               <div :class="styles.label">Types</div>
               <Tags :tags="pokemon.types" :class="styles.tags" />
@@ -186,6 +222,7 @@ export default defineComponent({
   .info {
     flex-direction: column;
     justify-content: center;
+    align-items: stretch;
   }
 
   .tags-container {
@@ -196,10 +233,10 @@ export default defineComponent({
       position: relative;
       padding-top: 1rem;
     }
+  }
 
-    .label {
-      font-weight: 500;
-    }
+  .label {
+    font-weight: 500;
   }
 
   .id-name-audio-container {
@@ -254,6 +291,64 @@ export default defineComponent({
   .favorite {
     margin-top: 3rem;
     align-self: center;
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 2rem 0;
+  border-radius: 1.5rem;
+  margin-top: 2rem;
+
+  .stat {
+    .label {
+      font-weight: 500;
+    }
+
+    p {
+      background-color: #f3f5fa;
+      padding: 1rem;
+      border-radius: 25px;
+      text-align: center;
+    }
+  }
+}
+
+.hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid #f3f5fa;
+  margin: 0 0 2rem 0;
+  padding: 0;
+}
+
+.attacks {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  .label {
+    margin-bottom: 1rem;
+  }
+
+  .attack {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    img {
+      width: 25px;
+      height: 25px;
+    }
+
+    p {
+      margin: 0;
+    }
   }
 }
 
