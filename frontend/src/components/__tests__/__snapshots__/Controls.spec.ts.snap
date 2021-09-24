@@ -8,5 +8,8 @@ exports[`components/Controls.vue has the expected html structure 1`] = `
     class="search"
     initialvalue=""
   />
+  <toggle-layout-stub
+    islist="false"
+  />
 </div>
 `;

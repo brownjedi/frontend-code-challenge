@@ -67,6 +67,7 @@
                 </div>
               </div>
             </div>
+            <hr :class="styles.hr" />
             <div :class="styles['tags-container']">
               <div :class="styles.label">Types</div>
               <Tags :tags="pokemon.types" :class="styles.tags" />
@@ -79,6 +80,12 @@
               <div :class="styles.label">Weaknesses</div>
               <Tags :tags="pokemon.weaknesses" :class="styles.tags" />
             </div>
+            <hr v-if="evolutions.length > 0" :class="styles.hr" />
+            <div v-if="evolutions.length > 0" :class="styles.evolutions">
+              <div :class="styles.label">Evolutions</div>
+              <Evolutions :evolutions="evolutions" />
+            </div>
+            <hr v-if="evolutions.length > 0" :class="styles.hr" />
             <Favorite :class="styles.favorite" :large="true" :isFavorite="pokemon.isFavorite" @click="toggleFavorite" />
             <audio ref="audioRef">
               <source :src="pokemon.sound" type="audio/mp3" />
@@ -100,11 +107,13 @@ import Favorite from './Favorite.vue'
 import { usePokemonByNameQuery } from '@/composables/pokemonByNameQuery'
 import { useUnFavoritePokemonMutation } from '@/composables/unFavoritePokemonMutation'
 import { useFavoritePokemonMutation } from '@/composables/favoritePokemonMutation'
+import Evolutions from './Evolutions.vue'
 
 export default defineComponent({
   components: {
     Tags,
     Favorite,
+    Evolutions,
   },
   props: {
     name: {
@@ -132,10 +141,31 @@ export default defineComponent({
       }
     }
 
+    const evolutions = computed(() => {
+      if (!pokemon.value?.evolutions || pokemon.value.evolutions.length === 0) {
+        return []
+      }
+      return [...pokemon.value?.evolutions, { id: pokemon.value?.id, name: pokemon.value?.name }].sort((a, b) => {
+        if (a.id > b.id) return 1
+        else if (a.id < b.id) return -1
+        else return 0
+      })
+    })
     const backgroundColor = computed(() => pokemon.value?.rgbaster?.backgroundColor || 'inherit')
     const textColor = computed(() => pokemon.value?.rgbaster?.textColor || 'inherit')
 
-    return { styles, pokemon, loading, error, backgroundColor, textColor, audioRef, playAudio, toggleFavorite }
+    return {
+      styles,
+      pokemon,
+      loading,
+      error,
+      backgroundColor,
+      textColor,
+      audioRef,
+      playAudio,
+      toggleFavorite,
+      evolutions,
+    }
   },
 })
 </script>
@@ -227,12 +257,15 @@ export default defineComponent({
 
   .tags-container {
     align-self: stretch;
-    padding-top: 2rem;
 
     .tags {
       position: relative;
       padding-top: 1rem;
     }
+  }
+
+  .tags-container + .tags-container {
+    padding-top: 2rem;
   }
 
   .label {
@@ -298,7 +331,7 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  padding: 2rem 0;
+  padding-top: 2rem;
   border-radius: 1.5rem;
   margin-top: 2rem;
 
@@ -321,12 +354,11 @@ export default defineComponent({
   height: 1px;
   border: 0;
   border-top: 2px solid #f3f5fa;
-  margin: 0 0 2rem 0;
+  margin: 2rem 0;
   padding: 0;
 }
 
 .attacks {
-  margin-top: 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
@@ -349,6 +381,12 @@ export default defineComponent({
     p {
       margin: 0;
     }
+  }
+}
+
+.evolutions {
+  .label {
+    margin-bottom: 1rem;
   }
 }
 

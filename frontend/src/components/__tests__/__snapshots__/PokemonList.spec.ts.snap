@@ -2,17 +2,21 @@
 
 exports[`components/PokemonList.vue when query loading has the expected html structure 1`] = `
 <div
-  class=""
+  class="container"
 >
   <transition-stub>
     <div
-      class="loading"
+      style="display: none;"
     >
-
-      <card-skeleton-stub />
-      <card-skeleton-stub />
-      <card-skeleton-stub />
-
+      <div
+        class="loading"
+      >
+        
+        <card-skeleton-stub />
+        <card-skeleton-stub />
+        <card-skeleton-stub />
+        
+      </div>
     </div>
   </transition-stub>
 </div>

@@ -10,6 +10,7 @@ exports[`components/Search.vue has the expected html structure 1`] = `
   />
   <input
     class="search"
+    data-cy="pokemon-search"
     placeholder="Search Pokémons"
     type="text"
   />

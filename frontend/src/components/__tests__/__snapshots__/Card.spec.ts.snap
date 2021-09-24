@@ -3,6 +3,7 @@
 exports[`components/Card.vue has the expected html structure 1`] = `
 <div
   class="container"
+  data-cy="pokemon-card"
 >
   <div
     class="header"
@@ -23,6 +24,7 @@ exports[`components/Card.vue has the expected html structure 1`] = `
   </div>
   <div
     class="name"
+    data-cy="pokemon-card-name"
   >
     Bulbasaur
   </div>
