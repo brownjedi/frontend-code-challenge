@@ -45,7 +45,7 @@ export default defineComponent({
     align-self: center;
   }
 
-  @media (max-width: $break-1024) {
+  @media (max-width: 64em) {
     flex-direction: column;
     align-items: center;
     .arrow {
