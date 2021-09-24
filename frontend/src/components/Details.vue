@@ -209,7 +209,7 @@ export default defineComponent({
     margin: 3rem;
   }
 
-  @media (max-width: var(--break-768)) {
+  @media (max-width: $break-768) {
     flex-direction: column;
   }
 }
@@ -233,7 +233,7 @@ export default defineComponent({
     cursor: pointer;
   }
 
-  @media (max-width: var(--break-768)) {
+  @media (max-width: $break-768) {
     height: auto;
     position: relative;
     border-bottom-left-radius: 50% 15%;
@@ -278,15 +278,15 @@ export default defineComponent({
     justify-content: space-between;
     font-size: 3rem;
 
-    @media (max-width: var(--break-1024)) {
+    @media (max-width: $break-1024) {
       flex-direction: column-reverse;
     }
 
-    @media (max-width: var(--break-768)) {
+    @media (max-width: $break-768) {
       flex-direction: row;
     }
 
-    @media (max-width: var(--break-480)) {
+    @media (max-width: $break-480) {
       flex-direction: column-reverse;
     }
   }
