@@ -1,5 +1,7 @@
 # Coding Exercise Frontend
 
+[Sai's Completed Excercise Video Link](https://drive.google.com/file/d/1XoTSuxI906kkhcQlzCNak9jlP_QKHb_2/view?usp=sharing)
+
 This repository contains a coding exercise for new developers joining the frontend development team. This version is focused in Vue.
 
 Fork this repository and create your own exercise!
